@@ -125,8 +125,7 @@ const Boiler = () => {
                       variant='contained'
                       onClick={(e) => {
                         e.preventDefault();
-                        const data = deleteBoilerData(data._id);
-                        console.log(data);
+                        deleteBoilerData(data._id);
                         refetch();
                       }}
                     >
