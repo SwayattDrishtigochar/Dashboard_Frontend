@@ -125,7 +125,6 @@ const Boiler = () => {
                       variant='contained'
                       onClick={async (e) => {
                         e.preventDefault();
-                        window.confirm('Confirm Delete');
                         const data = await deleteBoilerData(data._id);
                         console.log(data);
                         refetch();
