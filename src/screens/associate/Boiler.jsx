@@ -123,9 +123,9 @@ const Boiler = () => {
                     <Button
                       color='primary'
                       variant='contained'
-                      onClick={async (e) => {
+                      onClick={(e) => {
                         e.preventDefault();
-                        const data = await deleteBoilerData(data._id);
+                        const data = deleteBoilerData(data._id);
                         console.log(data);
                         refetch();
                       }}
