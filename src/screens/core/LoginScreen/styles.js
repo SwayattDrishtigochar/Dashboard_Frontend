@@ -7,6 +7,6 @@ export default makeStyles((theme) => ({
     margin: '5px 5px !important',
     width: '100%',
 
-    [theme.breakpoints.down('md')]: {},
+    [theme.breakpoints.down('lg')]: {},
   },
 }));

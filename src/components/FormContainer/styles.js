@@ -6,9 +6,10 @@ export default makeStyles((theme) => ({
     margin: 0,
     width: '100%',
   },
+
   image: {
     width: '100%',
-    [theme.breakpoints.down('md')]: {
+    [theme.breakpoints.down('lg')]: {
       display: 'none',
     },
   },

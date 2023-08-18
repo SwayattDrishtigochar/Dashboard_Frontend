@@ -13,14 +13,14 @@
 textarea:focus,
 textarea.form-control:focus,
 input.form-control:focus,
-input[type="text"]:focus,
-input[type="password"]:focus,
-input[type="email"]:focus,
-input[type="number"]:focus,
-[type="text"].form-control:focus,
-[type="password"].form-control:focus,
-[type="email"].form-control:focus,
-[type="tel"].form-control:focus,
+input[type='text']:focus,
+input[type='password']:focus,
+input[type='email']:focus,
+input[type='number']:focus,
+[type='text'].form-control:focus,
+[type='password'].form-control:focus,
+[type='email'].form-control:focus,
+[type='tel'].form-control:focus,
 [contenteditable].form-control:focus {
   box-shadow: inset 0 -1px 0 #ddd;
 }
@@ -33,7 +33,7 @@ input::-webkit-inner-spin-button {
 }
 
 /* Firefox */
-input[type="number"] {
+input[type='number'] {
   -moz-appearance: textfield;
 }
 
@@ -54,7 +54,7 @@ input[type="number"] {
 
 .hg-theme-default {
   position: fixed !important;
-  top: 0;
+  bottom: 0;
   left: 0;
   z-index: 99;
   background-color: #ececec;
@@ -69,6 +69,13 @@ input[type="number"] {
   -moz-user-select: none;
   user-select: none;
   width: 100%;
+  /* height: 100vh; */
+}
+@media (min-width: 1080px) {
+  /* Target devices larger than lg (992px) and hide the element */
+  .hg-theme-default {
+    display: none;
+  }
 }
 .hg-theme-default .hg-button span {
   pointer-events: none;
@@ -121,7 +128,7 @@ input[type="number"] {
 .hg-theme-default.hg-layout-numeric .hg-button {
   align-items: center;
   display: flex;
-  height: 60px;
+  height: 40px !important;
   justify-content: center;
   width: 33.3%;
 }
@@ -142,10 +149,10 @@ input[type="number"] {
   background: rgba(5, 25, 70, 0.53);
   color: #fff;
 }
-.hg-theme-default .hg-button.hg-standardBtn[data-skbtn=".com"] {
+.hg-theme-default .hg-button.hg-standardBtn[data-skbtn='.com'] {
   max-width: 82px;
 }
-.hg-theme-default .hg-button.hg-standardBtn[data-skbtn="@"] {
+.hg-theme-default .hg-button.hg-standardBtn[data-skbtn='@'] {
   max-width: 60px;
 }
 .hg-candidate-box {
@@ -183,10 +190,10 @@ li.hg-candidate-box-list-item:active {
   background: rgba(0, 0, 0, 0.1);
 }
 .hg-candidate-box-prev:before {
-  content: "◄";
+  content: '◄';
 }
 .hg-candidate-box-next:before {
-  content: "►";
+  content: '►';
 }
 .hg-candidate-box-next,
 .hg-candidate-box-prev {
