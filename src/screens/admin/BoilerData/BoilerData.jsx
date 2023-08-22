@@ -11,6 +11,11 @@ const BoilerData = () => {
   const [totalRecords, setTotalRecords] = useState(0);
   const [date, setDate] = useState('');
 
+  const [focus, setFocused] = useState(false);
+  const [hasValue, setHasValue] = useState(false);
+  const onFocus = () => setFocused(true);
+  const onBlur = () => setFocused(false);
+
   const handleChangePage = (event, newPage) => {
     setPage(newPage);
   };
@@ -99,10 +104,16 @@ const BoilerData = () => {
             marginTop='10px'
           >
             <TextField
+              onFocus={onFocus}
+              onBlur={onBlur}
+              onChange={(e) => {
+                setDate(e.target.value);
+                if (e.target.value) setHasValue(true);
+                else setHasValue(false);
+              }}
               label='Date'
-              type='date'
+              type={hasValue || focus ? 'date' : 'text'}
               value={date}
-              onChange={(e) => setDate(e.target.value)}
             />
 
             <TablePagination
