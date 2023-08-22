@@ -5,7 +5,6 @@
 }
 
 .App {
-  padding: 10px;
   margin: 0;
   height: 100% !important;
 }
@@ -213,4 +212,8 @@ li.hg-candidate-box-list-item:active {
 }
 .hg-candidate-box-btn-active {
   color: #444;
+}
+
+.spacer {
+  margin-top: 100px !important;
 }

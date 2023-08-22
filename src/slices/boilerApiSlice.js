@@ -18,6 +18,13 @@ export const boilerApiSlice = apiSlice.injectEndpoints({
         method: 'GET',
       }),
     }),
+    getAllBoilerData: builder.query({
+      query: ({ page, limit, date }) => ({
+        url: `${BOILER_URL}/data?page=${page}&limit=${limit}&date=${date}`,
+        credentials: 'include',
+        method: 'GET',
+      }),
+    }),
     deleteBoilerData: builder.mutation({
       query: (id) => ({
         url: `${BOILER_URL}/${id}`,
@@ -32,4 +39,5 @@ export const {
   useSetBoilerDataMutation,
   useGetBoilerDataQuery,
   useDeleteBoilerDataMutation,
+  useGetAllBoilerDataQuery,
 } = boilerApiSlice;

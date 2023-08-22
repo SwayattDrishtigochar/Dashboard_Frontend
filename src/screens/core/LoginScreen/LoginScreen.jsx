@@ -27,7 +27,6 @@ import useStyles from './styles';
 
 const LoginScreen = () => {
   const [layoutName, setLayoutName] = useState('default');
-  const keyboard = useRef();
   const [inputName, setInputName] = useState(''); // Track the active input field name for the Keyboard
   const [keyboardValue, setKeyboardValue] = useState('');
   const navigate = useNavigate();
@@ -112,7 +111,7 @@ const LoginScreen = () => {
               value={email}
               onChange={(e) => setEmail(e.target.value)}
               onFocus={() => setInputName('email')} // Set the active input field for the Keyboard
-              error={error}
+              error={isError}
               // helperText={error}
               InputProps={{
                 startAdornment: (
@@ -131,7 +130,7 @@ const LoginScreen = () => {
               value={password}
               onChange={(e) => setPassword(e.target.value)}
               onFocus={() => setInputName('password')} // Set the active input field for the Keyboard
-              error={error}
+              error={isError}
               // helperText={error}
               InputProps={{
                 startAdornment: (

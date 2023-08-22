@@ -14,7 +14,7 @@ import {
   AccountCircle,
   ExitToApp,
   Person,
-  Settings,
+  // Settings,
 } from '@mui/icons-material';
 import { Link, useNavigate } from 'react-router-dom';
 import { useSelector, useDispatch } from 'react-redux';
@@ -79,7 +79,7 @@ const Header = () => {
               transformOrigin={{ horizontal: 'right', vertical: 'top' }}
               anchorOrigin={{ horizontal: 'right', vertical: 'bottom' }}
             >
-              <MenuItem onClick={handleMenuClose}>
+              {/* <MenuItem onClick={handleMenuClose}>
                 <Link
                   to='/profile'
                   style={{ textDecoration: 'none', color: 'inherit' }}
@@ -87,7 +87,7 @@ const Header = () => {
                   <Person style={{ marginRight: '8px' }} />
                   Profile
                 </Link>
-              </MenuItem>
+              </MenuItem> */}
               {/* {userInfo.role === 'admin' ? (
                 <MenuItem onClick={handleMenuClose}>
                   <Link

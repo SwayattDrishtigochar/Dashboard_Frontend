@@ -19,6 +19,7 @@ import {
 import { addBoilerData, removeBoilerData } from '../../slices/boilerSlice';
 import Loader from '../../components/Loader/Loader';
 import { toast } from 'react-toastify';
+import Header from '../../components/Header/Header';
 
 const Boiler = () => {
   const [open, setOpen] = useState(false);
@@ -42,7 +43,7 @@ const Boiler = () => {
 
   const handleClose = () => {
     setOpen(false);
-    refetch();
+    // refetch();
   };
   // console.log(boilerData);
   if (isLoading) {
@@ -51,6 +52,7 @@ const Boiler = () => {
 
   return (
     <>
+      <Header />
       <Box position='relative'>
         <Typography variant='h6' align='center' gutterBottom>
           Boiler Data

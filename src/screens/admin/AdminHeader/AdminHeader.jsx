@@ -1,6 +1,6 @@
-import * as React from 'react';
+import { useState } from 'react';
 import { styled, useTheme } from '@mui/material/styles';
-import Box from '@mui/material/Box';
+import { Menu, MenuItem } from '@mui/material';
 import MuiDrawer from '@mui/material/Drawer';
 import MuiAppBar from '@mui/material/AppBar';
 import Toolbar from '@mui/material/Toolbar';
@@ -9,29 +9,21 @@ import Typography from '@mui/material/Typography';
 import Divider from '@mui/material/Divider';
 import IconButton from '@mui/material/IconButton';
 import MenuIcon from '@mui/icons-material/Menu';
+import { Person, ExitToApp } from '@mui/icons-material';
 import ChevronLeftIcon from '@mui/icons-material/ChevronLeft';
 import ChevronRightIcon from '@mui/icons-material/ChevronRight';
 import ListItem from '@mui/material/ListItem';
 import ListItemButton from '@mui/material/ListItemButton';
 import ListItemIcon from '@mui/material/ListItemIcon';
 import ListItemText from '@mui/material/ListItemText';
-import InboxIcon from '@mui/icons-material/MoveToInbox';
-import MailIcon from '@mui/icons-material/Mail';
+import DashboardIcon from '@mui/icons-material/Dashboard';
 import AccountCircle from '@mui/icons-material/AccountCircle';
-import {
-  LineChart,
-  Line,
-  XAxis,
-  YAxis,
-  CartesianGrid,
-  Tooltip,
-  Legend,
-  BarChart,
-  Bar,
-  PieChart,
-  Pie,
-  Cell,
-} from 'recharts';
+import LocalFireDepartmentIcon from '@mui/icons-material/LocalFireDepartment';
+import { Link, useNavigate } from 'react-router-dom';
+import { useSelector, useDispatch } from 'react-redux';
+import { useLogoutMutation } from '../../../slices/authApiSlice';
+import { logout } from '../../../slices/authSlice';
+import Logo from '../../../assets/logo.png';
 
 const drawerWidth = 240;
 
@@ -68,6 +60,7 @@ const DrawerHeader = styled('div')(({ theme }) => ({
 const AppBar = styled(MuiAppBar, {
   shouldForwardProp: (prop) => prop !== 'open',
 })(({ theme, open }) => ({
+  marginBottom: '70px !important',
   zIndex: theme.zIndex.drawer + 1,
   transition: theme.transitions.create(['width', 'margin'], {
     easing: theme.transitions.easing.sharp,
@@ -100,9 +93,25 @@ const Drawer = styled(MuiDrawer, {
   }),
 }));
 
-const DashboardScreen = () => {
+const AdminHeader = () => {
+  const dispatch = useDispatch();
+  const navigate = useNavigate();
   const theme = useTheme();
-  const [open, setOpen] = React.useState(false);
+  const [open, setOpen] = useState(false);
+
+  const [logoutApiCall] = useLogoutMutation();
+
+  const [anchorEl, setAnchorEl] = useState(null);
+  const menuOpen = Boolean(anchorEl);
+  const handleMenuOpen = (event) => {
+    setAnchorEl(event.currentTarget);
+  };
+
+  const handleMenuClose = () => {
+    setAnchorEl(null);
+  };
+
+  const { userInfo } = useSelector((state) => state.auth);
 
   const handleDrawerOpen = () => {
     setOpen(true);
@@ -112,39 +121,18 @@ const DashboardScreen = () => {
     setOpen(false);
   };
 
-  const temperatureData = [
-    { time: '00:00', temperature: 25 },
-    { time: '03:00', temperature: 23 },
-    { time: '06:00', temperature: 22 },
-    { time: '09:00', temperature: 26 },
-    { time: '12:00', temperature: 30 },
-    { time: '15:00', temperature: 28 },
-    { time: '18:00', temperature: 26 },
-    { time: '21:00', temperature: 24 },
-  ];
-
-  // Sample data for the bar chart
-  // Sample data for the bar chart
-  const barChartData = [
-    { name: 'Machine 1', value: 120 },
-    { name: 'Machine 2', value: 80 },
-    { name: 'Machine 3', value: 65 },
-    { name: 'Machine 4', value: 65 },
-  ];
-
-  // Sample data for the pie chart
-  const manufacturingData = [
-    { name: 'Production', value: 300 },
-    { name: 'Maintenance', value: 100 },
-    { name: 'Quality Control', value: 80 },
-    { name: 'Inventory', value: 200 },
-  ];
-
-  // Colors for the pie chart
-  const pieChartColors = ['#8884d8', '#82ca9d', '#ffc658'];
+  const handleLogout = async () => {
+    try {
+      await logoutApiCall().unwrap();
+      dispatch(logout());
+      navigate('/');
+    } catch (err) {
+      console.error(err);
+    }
+  };
 
   return (
-    <Box sx={{ display: 'flex' }}>
+    <>
       <AppBar position='fixed' open={open}>
         <Toolbar>
           <IconButton
@@ -159,10 +147,48 @@ const DashboardScreen = () => {
           >
             <MenuIcon />
           </IconButton>
+          <Link to='/'>
+            <img
+              src={Logo}
+              alt='Logo'
+              style={{
+                marginRight: '10px',
+                width: 28,
+                height: 40,
+                marginLeft: '-20px',
+              }}
+            />
+          </Link>
           <Typography variant='h6' noWrap component='div'>
-            Dashboard
+            IMPCOPS
           </Typography>
-          <AccountCircle />
+          <IconButton
+            aria-controls={menuOpen ? 'menu-appbar' : undefined}
+            aria-haspopup='true'
+            aria-expanded={menuOpen ? 'true' : undefined}
+            color='inherit'
+            onClick={handleMenuOpen}
+            sx={{
+              position: 'absolute',
+              right: 25,
+            }}
+          >
+            <AccountCircle />
+          </IconButton>
+          <Menu
+            anchorEl={anchorEl}
+            open={Boolean(anchorEl)}
+            id='menu-appbar'
+            onClose={handleMenuClose}
+            onClick={handleMenuClose}
+            transformOrigin={{ horizontal: 'right', vertical: 'top' }}
+            anchorOrigin={{ horizontal: 'right', vertical: 'bottom' }}
+          >
+            <MenuItem onClick={handleLogout}>
+              <ExitToApp style={{ marginRight: '8px' }} />
+              Logout
+            </MenuItem>
+          </Menu>
         </Toolbar>
       </AppBar>
       <Drawer variant='permanent' open={open}>
@@ -177,8 +203,14 @@ const DashboardScreen = () => {
         </DrawerHeader>
         <Divider />
         <List>
-          {['Dashboard', 'Quality'].map((text, index) => (
-            <ListItem key={text} disablePadding sx={{ display: 'block' }}>
+          <ListItem disablePadding sx={{ display: 'block' }}>
+            <Link
+              to={`/${userInfo?.company}/dashboard`}
+              style={{
+                textDecorationLine: 'none',
+                color: 'inherit',
+              }}
+            >
               <ListItemButton
                 sx={{
                   minHeight: 48,
@@ -193,17 +225,26 @@ const DashboardScreen = () => {
                     justifyContent: 'center',
                   }}
                 >
-                  {index % 2 === 0 ? <InboxIcon /> : <MailIcon />}
+                  <DashboardIcon />
                 </ListItemIcon>
-                <ListItemText primary={text} sx={{ opacity: open ? 1 : 0 }} />
+                <ListItemText
+                  primary={'Dashboard'}
+                  sx={{ opacity: open ? 1 : 0 }}
+                />
               </ListItemButton>
-            </ListItem>
-          ))}
+            </Link>
+          </ListItem>
         </List>
         <Divider />
         <List>
-          {['All mail', 'Trash', 'Spam'].map((text, index) => (
-            <ListItem key={text} disablePadding sx={{ display: 'block' }}>
+          <ListItem disablePadding sx={{ display: 'block' }}>
+            <Link
+              to='/boiler/data'
+              style={{
+                textDecorationLine: 'none',
+                color: 'inherit',
+              }}
+            >
               <ListItemButton
                 sx={{
                   minHeight: 48,
@@ -218,35 +259,16 @@ const DashboardScreen = () => {
                     justifyContent: 'center',
                   }}
                 >
-                  {index % 2 === 0 ? <InboxIcon /> : <MailIcon />}
+                  <LocalFireDepartmentIcon />
                 </ListItemIcon>
-                <ListItemText primary={text} sx={{ opacity: open ? 1 : 0 }} />
+                <ListItemText primary='Boiler' sx={{ opacity: open ? 1 : 0 }} />
               </ListItemButton>
-            </ListItem>
-          ))}
+            </Link>
+          </ListItem>
         </List>
       </Drawer>
-      <Box component='main' sx={{ flexGrow: 1, p: 1 }}>
-        {/* <DrawerHeader /> */}
-        <LineChart width={400} height={300} data={temperatureData}>
-          <XAxis dataKey='time' />
-          <YAxis />
-          <CartesianGrid stroke='#eee' strokeDasharray='5 5' />
-          <Tooltip />
-          <Legend />
-          <Line type='monotone' dataKey='temperature' stroke='#8884d8' />
-        </LineChart>
-        <BarChart width={400} height={300} data={barChartData}>
-          <XAxis dataKey='name' />
-          <YAxis />
-          <CartesianGrid stroke='#eee' strokeDasharray='5 5' />
-          <Tooltip />
-          <Legend />
-          <Bar dataKey='value' fill='#8884d8' />
-        </BarChart>
-      </Box>
-    </Box>
+    </>
   );
 };
 
-export default DashboardScreen;
+export default AdminHeader;

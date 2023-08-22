@@ -55,10 +55,10 @@ const BoilerModal = ({ open, onClose }) => {
   };
 
   const setDefault = () => {
-    setSteamPressure('');
-    setMainValveControls('');
-    setFeedPump1('');
-    setFeedPump2('');
+    // setSteamPressure('');
+    // setMainValveControls('');
+    // setFeedPump1('');
+    // setFeedPump2('');
     setWaterLevel('');
   };
   const [setBoilerData, { isLoading, error }] = useSetBoilerDataMutation();
@@ -80,7 +80,24 @@ const BoilerModal = ({ open, onClose }) => {
         // blowDown,
         time,
       }).unwrap();
-      dispatch(addBoilerData([...boilerData, res.data]));
+      console.log(res.data);
+      dispatch(
+        addBoilerData([
+          ...boilerData,
+          {
+            steamPressure,
+            mainValveControls,
+            feedPump1,
+            feedPump2,
+            waterLevel,
+            // feedWater,
+            // blowDown,
+            time: new Date(time).toLocaleString('en-IN', {
+              timeZone: 'Asia/Kolkata',
+            }),
+          },
+        ])
+      );
       handleClose();
       setDefault();
       onClose();
@@ -99,6 +116,7 @@ const BoilerModal = ({ open, onClose }) => {
           <DialogContent>
             <FormControl fullWidth margin='normal'>
               <TextField
+                required
                 error={error}
                 name='steamPressure'
                 label='Steam Pressure'
@@ -196,6 +214,13 @@ const BoilerModal = ({ open, onClose }) => {
           <DialogActions>
             <Button onClick={onClose}>Cancel</Button>
             <Button
+              disabled={
+                (steamPressure &&
+                  mainValveControls &&
+                  feedPump1 &&
+                  feedPump2 &&
+                  waterLevel) == ('' || 0)
+              }
               onClick={handleClickOpen}
               variant='contained'
               color='primary'
