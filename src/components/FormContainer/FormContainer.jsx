@@ -14,7 +14,7 @@ const FormContainer = ({ children }) => {
         <Grid
           item
           lg={8}
-          md={6}
+          md={12}
           sm={12}
           sx={{
             px: '0 !important',

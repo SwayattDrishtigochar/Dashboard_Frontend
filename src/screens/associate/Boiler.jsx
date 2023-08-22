@@ -16,9 +16,10 @@ import {
   useGetBoilerDataQuery,
   useDeleteBoilerDataMutation,
 } from '../../slices/boilerApiSlice';
-import { addBoilerData } from '../../slices/boilerSlice';
+import { addBoilerData, removeBoilerData } from '../../slices/boilerSlice';
 import Loader from '../../components/Loader/Loader';
 import { toast } from 'react-toastify';
+import Header from '../../components/Header/Header';
 
 const Boiler = () => {
   const [open, setOpen] = useState(false);
@@ -42,7 +43,7 @@ const Boiler = () => {
 
   const handleClose = () => {
     setOpen(false);
-    refetch();
+    // refetch();
   };
   // console.log(boilerData);
   if (isLoading) {
@@ -51,6 +52,7 @@ const Boiler = () => {
 
   return (
     <>
+      <Header />
       <Box position='relative'>
         <Typography variant='h6' align='center' gutterBottom>
           Boiler Data
@@ -72,9 +74,9 @@ const Boiler = () => {
                 <TableCell style={{ textAlign: 'center' }}>
                   Water Level
                 </TableCell>
-                <TableCell colSpan={2} style={{ textAlign: 'center' }}>
+                {/* <TableCell colSpan={2} style={{ textAlign: 'center' }}>
                   Water Analysis
-                </TableCell>
+                </TableCell> */}
               </TableRow>
               <TableRow>
                 <TableCell />
@@ -83,40 +85,41 @@ const Boiler = () => {
                 <TableCell style={{ textAlign: 'center' }}>Number 1</TableCell>
                 <TableCell style={{ textAlign: 'center' }}>Number 2</TableCell>
                 <TableCell />
-                <TableCell style={{ textAlign: 'center' }}>
+                {/* <TableCell style={{ textAlign: 'center' }}>
                   Feed Water
                 </TableCell>
-                <TableCell style={{ textAlign: 'center' }}>Blow Down</TableCell>
+                <TableCell style={{ textAlign: 'center' }}>Blow Down</TableCell> */}
               </TableRow>
             </TableHead>
             <TableBody>
               {boilerData?.map((data, index) => (
                 <TableRow key={index}>
                   <TableCell style={{ textAlign: 'center' }}>
-                    {data.time}
+                    {data?.time}
                   </TableCell>
                   <TableCell style={{ textAlign: 'center' }}>
-                    {data.steamPressure}
+                    {data?.steamPressure}
                   </TableCell>
                   <TableCell style={{ textAlign: 'center' }}>
-                    {data.mainValveControls}
+                    {data?.mainValveControls}
                   </TableCell>
                   <TableCell style={{ textAlign: 'center' }}>
-                    {data.feedPump1}
+                    {data?.feedPump1}
                   </TableCell>
                   <TableCell style={{ textAlign: 'center' }}>
-                    {data.feedPump2}
+                    {data?.feedPump2}
                   </TableCell>
                   <TableCell style={{ textAlign: 'center' }}>
-                    {data.waterLevel}
+                    {data?.waterLevel}
                   </TableCell>
-                  <TableCell style={{ textAlign: 'center' }}>
+                  {/* <TableCell style={{ textAlign: 'center' }}>
                     {data.feedWater}
                   </TableCell>
                   <TableCell style={{ textAlign: 'center' }}>
                     {data.blowDown}
-                  </TableCell>
-                  <TableCell style={{ textAlign: 'center' }}>
+                  </TableCell> */}
+                  {/* {//! Removed for MVP} */}
+                  {/* <TableCell style={{ textAlign: 'center' }}>
                     <Button color='primary' variant='outlined'>
                       Edit
                     </Button>
@@ -126,12 +129,13 @@ const Boiler = () => {
                       onClick={(e) => {
                         e.preventDefault();
                         deleteBoilerData(data._id);
+                        dispatch(removeBoilerData(data._id));
                         refetch();
                       }}
                     >
                       Delete
                     </Button>
-                  </TableCell>
+                  </TableCell> */}
                 </TableRow>
               ))}
             </TableBody>

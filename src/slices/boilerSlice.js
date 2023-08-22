@@ -12,10 +12,8 @@ const boilerSlice = createSlice({
       state.boilerData = action.payload;
     },
     removeBoilerData: (state, action) => {
-      const index = state.findIndex((data) => data.id === action.payload);
-      if (index !== -1) {
-        state.splice(index, 1);
-      }
+      const idToRemove = action.payload;
+      return state.boilerData.filter((data) => data._id !== idToRemove);
     },
   },
 });

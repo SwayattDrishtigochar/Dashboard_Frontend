@@ -20,13 +20,15 @@ import OtpScreen from './screens/core/OtpScreen/OtpScreen.jsx';
 import ProfileScreen from './screens/core/ProfileScreen/ProfileScreen.jsx';
 import PrivateRoute from './auth/PrivateRoute.jsx';
 import AdminRoute from './auth/AdminRoute.jsx';
-import DashboardScreen from './screens/DashboardScreen.jsx';
+import DashboardScreen from './screens/admin/DashboardScreen.jsx';
 import DashboardRoute from './auth/DashboardRoute.jsx';
 import PendingScreen from './screens/core/PendingScreen/PendingScreen.jsx';
 import AdminControlScreen from './screens/admin/AdminControlScreen/AdminControlScreen.jsx';
 import PasswordResetScreen from './screens/core/PasswordResetScreen/PasswordResetScreen.jsx';
 import ForgotPassword from './screens/core/ForgotPasswordScreen/ForgotPasswordScreen.jsx';
 import Boiler from './screens/associate/Boiler.jsx';
+import Header from './components/Header/Header.jsx';
+import BoilerData from './screens/admin/BoilerData/BoilerData.jsx';
 
 const theme = createTheme({
   palette: {
@@ -40,7 +42,6 @@ const router = createBrowserRouter(
   createRoutesFromElements(
     <Route path='/' element={<App />}>
       <Route index={true} path='/' element={<HomeScreen />} />
-
       <Route path='/login' element={<LoginScreen />} />
       <Route path='/register' element={<RegisterScreen />} />
       <Route
@@ -60,6 +61,7 @@ const router = createBrowserRouter(
       </Route>
       <Route path='' element={<AdminRoute />}>
         <Route path='/company/:companyId' element={<AdminControlScreen />} />
+        <Route path='/boiler/data' element={<BoilerData />} />
       </Route>
     </Route>
   )
