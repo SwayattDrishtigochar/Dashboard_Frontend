@@ -116,7 +116,7 @@ const LoginScreen = () => {
       KioskBoard?.run(passwordRef.current.querySelector('input'), {
         language: 'en',
         theme: 'light',
-        autoScroll: false,
+        autoScroll: true,
         allowRealKeyboard: true,
         allowMobileKeyboard: true,
         keysArrayOfObjects: [
