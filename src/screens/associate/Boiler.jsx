@@ -74,6 +74,7 @@ const Boiler = () => {
                 <TableCell style={{ textAlign: 'center' }}>
                   Water Level
                 </TableCell>
+                <TableCell style={{ textAlign: 'center' }}>Wood</TableCell>
                 {/* <TableCell colSpan={2} style={{ textAlign: 'center' }}>
                   Water Analysis
                 </TableCell> */}
@@ -111,6 +112,9 @@ const Boiler = () => {
                   </TableCell>
                   <TableCell style={{ textAlign: 'center' }}>
                     {data?.waterLevel}
+                  </TableCell>
+                  <TableCell style={{ textAlign: 'center' }}>
+                    {data?.woodAmount}
                   </TableCell>
                   {/* <TableCell style={{ textAlign: 'center' }}>
                     {data.feedWater}

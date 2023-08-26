@@ -12,7 +12,6 @@ import {
   TextField,
   Typography,
   Box,
-  Checkbox,
   DialogContentText,
 } from '@mui/material';
 import { useDispatch, useSelector } from 'react-redux';
@@ -28,6 +27,8 @@ const BoilerModal = ({ open, onClose }) => {
   const [feedPump1, setFeedPump1] = useState('');
   const [feedPump2, setFeedPump2] = useState('');
   const [waterLevel, setWaterLevel] = useState(0);
+  const [woodInput, setWoodInput] = useState('');
+  const [woodAmount, setWoodAmount] = useState(0);
   // const [feedWater, setFeedWater] = useState('OFF');
   // const [blowDown, setBlowDown] = useState('OFF');
   const dispatch = useDispatch();
@@ -55,19 +56,17 @@ const BoilerModal = ({ open, onClose }) => {
   };
 
   const setDefault = () => {
-    // setSteamPressure('');
-    // setMainValveControls('');
-    // setFeedPump1('');
-    // setFeedPump2('');
+    setSteamPressure('');
+    setMainValveControls('');
+    setFeedPump1('');
+    setFeedPump2('');
     setWaterLevel('');
+    setWoodInput('');
   };
   const [setBoilerData, { isLoading, error }] = useSetBoilerDataMutation();
 
   const handleSave = async (e) => {
     e.preventDefault();
-
-    // Set the current time as the form submission time
-    // const currentTime = new Date();
 
     try {
       const res = await setBoilerData({
@@ -78,9 +77,10 @@ const BoilerModal = ({ open, onClose }) => {
         waterLevel,
         // feedWater,
         // blowDown,
+        woodAmount,
         time,
       }).unwrap();
-      console.log(res.data);
+
       dispatch(
         addBoilerData([
           ...boilerData,
@@ -92,6 +92,7 @@ const BoilerModal = ({ open, onClose }) => {
             waterLevel,
             // feedWater,
             // blowDown,
+            woodAmount,
             time: new Date(time).toLocaleString('en-IN', {
               timeZone: 'Asia/Kolkata',
             }),
@@ -106,27 +107,46 @@ const BoilerModal = ({ open, onClose }) => {
     }
   };
 
+  const handleWoodInput = (value) => {
+    setWoodInput(value);
+    if (value === 'Yes') {
+      //add 500 to wood input
+
+      setWoodAmount((prev) => prev + 500);
+    } else {
+      // add 0 to wood input
+
+      setWoodAmount((prev) => prev + 0);
+    }
+    console.log(woodAmount);
+  };
+
   if (isLoading) return <Loader />;
 
   return (
     <>
       <Dialog open={open} onClose={onClose}>
-        <DialogTitle>Add Data</DialogTitle>
-        <form style={{ width: '100%' }}>
-          <DialogContent>
-            <FormControl fullWidth margin='normal'>
-              <TextField
-                required
-                error={error}
-                name='steamPressure'
-                label='Steam Pressure'
-                value={steamPressure}
-                onChange={(e) => setSteamPressure(e.target.value)}
-                type='number'
-              />
-            </FormControl>
+        <DialogTitle textAlign='center'>Add Boiler Data</DialogTitle>
 
-            <Box mt={2} display='flex' alignItems='center'>
+        <DialogContent sx={{ width: '70%', margin: 'auto', maxWidth: '100%' }}>
+          <FormControl fullWidth margin='normal'>
+            <TextField
+              required
+              error={error}
+              name='steamPressure'
+              label='Steam Pressure'
+              value={steamPressure}
+              onChange={(e) => setSteamPressure(e.target.value)}
+              type='number'
+            />
+          </FormControl>
+
+          <FormControl fullWidth margin='normal'>
+            <Box
+              display='flex'
+              justifyContent='space-between'
+              alignItems='center'
+            >
               <Typography variant='subtitle1'>Main Control Valve:</Typography>
               <RadioGroup
                 name='mainValveControls'
@@ -138,8 +158,14 @@ const BoilerModal = ({ open, onClose }) => {
                 <FormControlLabel value='OFF' control={<Radio />} label='OFF' />
               </RadioGroup>
             </Box>
+          </FormControl>
 
-            <Box mt={2} display='flex' alignItems='center'>
+          <FormControl fullWidth margin='normal'>
+            <Box
+              display='flex'
+              justifyContent='space-between'
+              alignItems='center'
+            >
               <Typography variant='subtitle1'>Feed Pump Number 1:</Typography>
               <RadioGroup
                 name='feedPump1'
@@ -151,8 +177,14 @@ const BoilerModal = ({ open, onClose }) => {
                 <FormControlLabel value='OFF' control={<Radio />} label='OFF' />
               </RadioGroup>
             </Box>
+          </FormControl>
 
-            <Box mt={2} display='flex' alignItems='center'>
+          <FormControl fullWidth margin='normal'>
+            <Box
+              display='flex'
+              justifyContent='space-between'
+              alignItems='center'
+            >
               <Typography variant='subtitle1'>Feed Pump Number 2:</Typography>
               <RadioGroup
                 name='feedPump2'
@@ -164,71 +196,66 @@ const BoilerModal = ({ open, onClose }) => {
                 <FormControlLabel value='OFF' control={<Radio />} label='OFF' />
               </RadioGroup>
             </Box>
-            {/* 
-            <TextField
-              name='waterLevel'
-              label='Water Level'
-              type='number'
-              value={waterLevel}
-              fullWidth
-              margin='normal'
-              onChange={(e) => setWaterLevel(e.target.value)}
-            /> */}
-            <div style={{ display: 'flex', alignItems: 'center' }}>
-              <p>Water Level:</p>
-              <div>
-                <Button onClick={handleDecrement}>-</Button>
-                <span>{waterLevel}</span>
-                <Button onClick={handleIncrement}>+</Button>
-              </div>
-            </div>
+          </FormControl>
 
-            {/* <Box mt={2}>
-            <FormControlLabel
-              control={
-                <Checkbox
-                  name='feedWater'
-                  checked={feedWater === 'ON'}
-                  color='primary'
-                  onChange={(e) =>
-                    setFeedWater(e.target.checked ? 'ON' : 'OFF')
-                  }
-                />
-              }
-              label='Feed Water Analysis'
-            />
-
-            <FormControlLabel
-              control={
-                <Checkbox
-                  name='blowDown'
-                  checked={blowDown === 'ON'}
-                  color='primary'
-                  onChange={(e) => setBlowDown(e.target.checked ? 'ON' : 'OFF')}
-                />
-              }
-              label='Blow Down Analysis'
-            />
-          </Box> */}
-          </DialogContent>
-          <DialogActions>
-            <Button onClick={onClose}>Cancel</Button>
-            <Button
-              disabled={
-                (steamPressure &&
-                  mainValveControls &&
-                  feedPump1 &&
-                  feedPump2 &&
-                  waterLevel) == ('' || 0)
-              }
-              onClick={handleClickOpen}
-              variant='contained'
-              color='primary'
+          <FormControl fullWidth margin='normal'>
+            <Box
+              display='flex'
+              justifyContent='space-between'
+              alignItems='center'
             >
-              Save
-            </Button>
-          </DialogActions>
-        </form>
+              <Typography variant='subtitle1'>Water Level:</Typography>
+              <Box display='flex' alignItems='center'>
+                {/* <Typography variant='body1' style={{ marginRight: '8px' }}>
+                    Select Water Level:
+                  </Typography> */}
+                <Button variant='outlined' onClick={handleDecrement}>
+                  -
+                </Button>
+                <span style={{ margin: '0 10px' }}>{waterLevel}</span>
+                <Button variant='outlined' onClick={handleIncrement}>
+                  +
+                </Button>
+              </Box>
+            </Box>
+          </FormControl>
+          <FormControl fullWidth margin='normal'>
+            <Box
+              display='flex'
+              justifyContent='space-between'
+              alignItems='center'
+            >
+              <Typography variant='subtitle1'>Wood Input:</Typography>
+              <RadioGroup
+                name='wood'
+                value={woodInput}
+                onChange={(e) => handleWoodInput(e.target.value)}
+                row
+              >
+                <FormControlLabel value='Yes' control={<Radio />} label='Yes' />
+                <FormControlLabel value='No' control={<Radio />} label='No' />
+              </RadioGroup>
+            </Box>
+          </FormControl>
+        </DialogContent>
+
+        <DialogActions>
+          <Button onClick={onClose}>Cancel</Button>
+          <Button
+            disabled={
+              steamPressure === '' ||
+              mainValveControls === '' ||
+              feedPump1 === '' ||
+              feedPump2 === '' ||
+              waterLevel === 0
+            }
+            onClick={handleClickOpen}
+            variant='contained'
+            color='primary'
+          >
+            Save
+          </Button>
+        </DialogActions>
       </Dialog>
 
       <Dialog open={openDialog} onClose={handleClose}>

@@ -1,6 +1,6 @@
 import { useEffect, useState } from 'react';
 import AdminHeader from '../AdminHeader/AdminHeader';
-import { Box, TablePagination, TextField } from '@mui/material';
+import { Box, TablePagination, TextField, Paper } from '@mui/material';
 import { DataGrid, GridToolbar } from '@mui/x-data-grid';
 import { useGetAllBoilerDataQuery } from '../../../slices/boilerApiSlice';
 
@@ -81,7 +81,15 @@ const BoilerData = () => {
         sx={{ mt: '70px' }}
       >
         <AdminHeader />
-        <div style={{ width: '90%', display: 'flex', flexDirection: 'column' }}>
+        <Paper
+          elevation={3}
+          style={{
+            width: '95%',
+            display: 'flex',
+            flexDirection: 'column',
+            padding: '10px',
+          }}
+        >
           <DataGrid
             sx={{
               '& .MuiDataGrid-columnHeaderTitleContainer': {
@@ -126,7 +134,7 @@ const BoilerData = () => {
               onRowsPerPageChange={handleChangeRowsPerPage}
             />
           </Box>
-        </div>
+        </Paper>
       </Box>
     </>
   );
