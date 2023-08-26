@@ -256,3 +256,9 @@ li.hg-candidate-box-list-item:active {
   justify-content: center !important;
   align-items: center !important;
 }
+
+@media (min-width: 1080px) {
+  #KioskBoard-VirtualKeyboard {
+    display: none !important;
+  }
+}
