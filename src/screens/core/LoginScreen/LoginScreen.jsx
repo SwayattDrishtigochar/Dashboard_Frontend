@@ -23,12 +23,16 @@ import Keyboard from 'react-simple-keyboard';
 import FormContainer from '../../../components/FormContainer/FormContainer';
 import Loader from '../../../components/Loader/Loader';
 import useStyles from './styles';
+import KioskBoard from 'kioskboard';
 // import "../../../../node_modules/react-simple-keyboard/build/css/index.css";
 
 const LoginScreen = () => {
-  const [layoutName, setLayoutName] = useState('default');
-  const [inputName, setInputName] = useState(''); // Track the active input field name for the Keyboard
-  const [keyboardValue, setKeyboardValue] = useState('');
+  const emailRef = useRef(null);
+  const passwordRef = useRef(null);
+
+  // const [layoutName, setLayoutName] = useState('default');
+  // const [inputName, setInputName] = useState(''); // Track the active input field name for the Keyboard
+  // const [keyboardValue, setKeyboardValue] = useState('');
   const navigate = useNavigate();
   const dispatch = useDispatch();
   const classes = useStyles();
@@ -42,16 +46,16 @@ const LoginScreen = () => {
 
   const { userInfo } = useSelector((state) => state.auth);
 
-  const isFormValid = email && password;
+  // const isFormValid = email && password;
 
-  const handleInputChange = (inputValue) => {
-    setKeyboardValue(inputValue);
-    if (inputName === 'email') {
-      setEmail(inputValue);
-    } else if (inputName === 'password') {
-      setPassword(inputValue);
-    }
-  };
+  // const handleInputChange = (inputValue) => {
+  //   setKeyboardValue(inputValue);
+  //   if (inputName === 'email') {
+  //     setEmail(inputValue);
+  //   } else if (inputName === 'password') {
+  //     setPassword(inputValue);
+  //   }
+  // };
 
   useEffect(() => {
     if (userInfo) {
@@ -63,8 +67,99 @@ const LoginScreen = () => {
     }
   }, [navigate, userInfo]);
 
+  useEffect(() => {
+    if (emailRef.current) {
+      KioskBoard?.run(emailRef.current.querySelector('input'), {
+        language: 'en',
+        theme: 'light',
+        autoScroll: false,
+        allowRealKeyboard: true,
+        allowMobileKeyboard: true,
+        keysArrayOfObjects: [
+          {
+            0: 'Q',
+            1: 'W',
+            2: 'E',
+            3: 'R',
+            4: 'T',
+            5: 'Y',
+            6: 'U',
+            7: 'I',
+            8: 'O',
+            9: 'P',
+          },
+          {
+            0: 'A',
+            1: 'S',
+            2: 'D',
+            3: 'F',
+            4: 'G',
+            5: 'H',
+            6: 'J',
+            7: 'K',
+            8: 'L',
+          },
+          {
+            0: 'Z',
+            1: 'X',
+            2: 'C',
+            3: 'V',
+            4: 'B',
+            5: 'N',
+            6: 'M',
+          },
+        ],
+      });
+    }
+    if (passwordRef.current) {
+      KioskBoard?.run(passwordRef.current.querySelector('input'), {
+        language: 'en',
+        theme: 'light',
+        autoScroll: false,
+        allowRealKeyboard: true,
+        allowMobileKeyboard: true,
+        keysArrayOfObjects: [
+          {
+            0: 'Q',
+            1: 'W',
+            2: 'E',
+            3: 'R',
+            4: 'T',
+            5: 'Y',
+            6: 'U',
+            7: 'I',
+            8: 'O',
+            9: 'P',
+          },
+          {
+            0: 'A',
+            1: 'S',
+            2: 'D',
+            3: 'F',
+            4: 'G',
+            5: 'H',
+            6: 'J',
+            7: 'K',
+            8: 'L',
+          },
+          {
+            0: 'Z',
+            1: 'X',
+            2: 'C',
+            3: 'V',
+            4: 'B',
+            5: 'N',
+            6: 'M',
+          },
+        ],
+      });
+    }
+  }, [emailRef, passwordRef]);
+
   const handleLogin = async (e) => {
     e.preventDefault();
+    const email = emailRef.current.querySelector('input').value;
+    const password = passwordRef.current.querySelector('input').value;
     try {
       const res = await login({ email, password }).unwrap();
       dispatch(setCredentials({ ...res }));
@@ -79,14 +174,16 @@ const LoginScreen = () => {
     setShowPassword((prevShowPassword) => !prevShowPassword);
   };
 
-  const onKeyPress = (button, e) => {
-    if (button === '{shift}') {
-      setLayoutName(layoutName === 'default' ? 'shift' : 'default');
-    }
-    if (button === '{enter}') {
-      handleLogin(e);
-    }
-  };
+  // const onKeyPress = (button, e) => {
+  //   if (button === '{shift}') {
+  //     setLayoutName(layoutName === 'default' ? 'shift' : 'default');
+  //   }
+  //   if (button === '{enter}') {
+  //     handleLogin(e);
+  //   }
+  // };
+
+  console.log('LoginScreen rendered');
 
   return (
     <FormContainer>
@@ -107,10 +204,11 @@ const LoginScreen = () => {
         <form onSubmit={handleLogin} style={{ width: '100%' }}>
           <FormControl fullWidth margin='normal'>
             <TextField
+              ref={emailRef}
               label='Email'
-              value={email}
-              onChange={(e) => setEmail(e.target.value)}
-              onFocus={() => setInputName('email')} // Set the active input field for the Keyboard
+              // value={email}
+              // onChange={(e) => setEmail(e.target.value)}
+              // onFocus={() => setInputName('email')} // Set the active input field for the Keyboard
               error={isError}
               // helperText={error}
               InputProps={{
@@ -127,9 +225,10 @@ const LoginScreen = () => {
             <TextField
               label='Password'
               type={showPassword ? 'text' : 'password'}
-              value={password}
-              onChange={(e) => setPassword(e.target.value)}
-              onFocus={() => setInputName('password')} // Set the active input field for the Keyboard
+              ref={passwordRef}
+              // value={password}
+              // onChange={(e) => setPassword(e.target.value)}
+              // onFocus={() => setInputName('password')} // Set the active input field for the Keyboard
               error={isError}
               // helperText={error}
               InputProps={{
@@ -147,7 +246,7 @@ const LoginScreen = () => {
               }}
             />
           </FormControl>
-          {inputName === 'email' && ( // Render the Keyboard below the Email TextField when the inputName matches
+          {/* {inputName === 'email' && ( // Render the Keyboard below the Email TextField when the inputName matches
             <Keyboard
               layoutName={layoutName}
               theme='hg-theme-default hg-layout-numeric numeric-theme'
@@ -174,16 +273,15 @@ const LoginScreen = () => {
                 '{enter}': 'Enter',
                 '{backspace}': '⌫',
                 '{shift}': '⇧',
+                '{space}': 'space ',
               }}
               inputName='email'
               onKeyPress={onKeyPress}
               onChange={(input) => handleInputChange(input)}
               value={keyboardValue}
-              // Add the required Keyboard options as per your requirement
-              // ...
             />
           )}
-          {inputName === 'password' && ( // Render the Keyboard below the Password TextField when the inputName matches
+          {inputName === 'password' && (
             <Keyboard
               inputName='password'
               theme='hg-theme-default hg-layout-numeric numeric-theme'
@@ -210,14 +308,13 @@ const LoginScreen = () => {
                 '{enter}': 'Enter',
                 '{backspace}': '⌫',
                 '{shift}': '⇧',
+                '{space}': ' space',
               }}
               onKeyPress={onKeyPress}
               onChange={(input) => handleInputChange(input)}
               value={keyboardValue}
-              // Add the required Keyboard options as per your requirement
-              // ...
             />
-          )}
+          )} */}
 
           <Button
             component={Link}
@@ -231,7 +328,7 @@ const LoginScreen = () => {
             type='submit'
             variant='contained'
             color='primary'
-            disabled={!isFormValid}
+            // disabled={!isFormValid}
             className={classes.button}
             sx={{ mt: 2, mb: 1 }}
           >
