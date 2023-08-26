@@ -72,9 +72,10 @@ const LoginScreen = () => {
       KioskBoard?.run(emailRef.current.querySelector('input'), {
         language: 'en',
         theme: 'light',
-        autoScroll: false,
+        autoScroll: true,
         allowRealKeyboard: true,
         allowMobileKeyboard: true,
+        keysIconSize: '20px',
         keysArrayOfObjects: [
           {
             0: 'Q',
