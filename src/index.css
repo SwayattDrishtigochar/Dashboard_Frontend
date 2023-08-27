@@ -275,3 +275,9 @@ li.hg-candidate-box-list-item:active {
     display: none !important;
   }
 }
+
+@media (max-width: 1080px) {
+  html {
+    cursor: none !important;
+  }
+}

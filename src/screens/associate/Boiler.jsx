@@ -53,7 +53,17 @@ const Boiler = () => {
     <>
       <Header />
       <Box position='relative'>
-        <Typography variant='h6' align='center' gutterBottom>
+        <Typography
+          variant='h5'
+          align='center'
+          gutterBottom
+          style={{
+            //make font bold
+            fontWeight: 'bold',
+            //give some space above
+            marginTop: '20px',
+          }}
+        >
           Boiler Data
         </Typography>
         <TableContainer component={Box}>
@@ -62,7 +72,8 @@ const Boiler = () => {
               <TableRow>
                 <TableCell style={{ textAlign: 'center' }}>Time</TableCell>
                 <TableCell style={{ textAlign: 'center' }}>
-                  Steam Pressure
+                  {/* show it as power of 2 */}
+                  Steam Pressure (Kg/CM<sup>2</sup>)
                 </TableCell>
                 <TableCell style={{ textAlign: 'center' }}>
                   Main Steam Valve Controls
@@ -71,9 +82,9 @@ const Boiler = () => {
                   Feed Pump
                 </TableCell>
                 <TableCell style={{ textAlign: 'center' }}>
-                  Water Level
+                  Water Level (%)
                 </TableCell>
-                <TableCell style={{ textAlign: 'center' }}>Wood</TableCell>
+                <TableCell style={{ textAlign: 'center' }}>Wood (kg)</TableCell>
                 {/* <TableCell colSpan={2} style={{ textAlign: 'center' }}>
                   Water Analysis
                 </TableCell> */}
@@ -126,7 +137,7 @@ const Boiler = () => {
         onClick={handleOpen}
         sx={{
           '&:hover': {
-            backgroundColor: 'primary.main',
+            backgroundColor: '#3dcc5b',
           },
           position: 'fixed',
           bottom: '20px',

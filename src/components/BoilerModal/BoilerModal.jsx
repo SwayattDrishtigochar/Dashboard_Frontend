@@ -18,11 +18,10 @@ import { useDispatch, useSelector } from 'react-redux';
 import { addBoilerData } from '../../slices/boilerSlice';
 import { useSetBoilerDataMutation } from '../../slices/boilerApiSlice';
 import { toast } from 'react-toastify';
-import Loader from '../Loader/Loader';
 
 const BoilerModal = ({ open, onClose }) => {
   const [time, setTime] = useState();
-  const [steamPressure, setSteamPressure] = useState('');
+  const [steamPressure, setSteamPressure] = useState(0);
   const [mainValveControls, setMainValveControls] = useState('');
   const [feedPump1, setFeedPump1] = useState('');
   const [feedPump2, setFeedPump2] = useState('');
@@ -45,23 +44,34 @@ const BoilerModal = ({ open, onClose }) => {
     setOpenDialog(false);
   };
 
-  const handleIncrement = () => {
+  const increaseWaterLevel = () => {
     setWaterLevel((prevValue) => prevValue + 5);
   };
 
-  const handleDecrement = () => {
+  const decreaseWaterLevel = () => {
     if (waterLevel > 0) {
       setWaterLevel((prevValue) => prevValue - 5);
     }
   };
 
+  const increaseSteam = () => {
+    setSteamPressure((prevValue) => prevValue + 5);
+  };
+
+  const decreaseeSteam = () => {
+    if (steamPressure > 0) {
+      setSteamPressure((prevValue) => prevValue - 5);
+    }
+  };
+
   const setDefault = () => {
-    setSteamPressure('');
+    setSteamPressure(0);
     setMainValveControls('');
     setFeedPump1('');
     setFeedPump2('');
-    setWaterLevel('');
+    setWaterLevel(0);
     setWoodInput('');
+    setWoodAmount(0);
   };
   const [setBoilerData, { isLoading, error }] = useSetBoilerDataMutation();
 
@@ -112,24 +122,21 @@ const BoilerModal = ({ open, onClose }) => {
     if (value === 'Yes') {
       //add 500 to wood input
 
-      setWoodAmount((prev) => prev + 500);
+      setWoodAmount(500);
     } else {
       // add 0 to wood input
 
-      setWoodAmount((prev) => prev + 0);
+      setWoodAmount(0);
     }
-    console.log(woodAmount);
   };
-
-  if (isLoading) return <Loader />;
 
   return (
     <>
-      <Dialog open={open} onClose={onClose}>
+      <Dialog open={open}>
         <DialogTitle textAlign='center'>Add Boiler Data</DialogTitle>
 
         <DialogContent sx={{ width: '70%', margin: 'auto', maxWidth: '100%' }}>
-          <FormControl fullWidth margin='normal'>
+          {/* <FormControl fullWidth margin='normal'>
             <TextField
               required
               error={error}
@@ -139,6 +146,27 @@ const BoilerModal = ({ open, onClose }) => {
               onChange={(e) => setSteamPressure(e.target.value)}
               type='number'
             />
+          </FormControl> */}
+          <FormControl fullWidth margin='normal'>
+            <Box
+              display='flex'
+              justifyContent='space-between'
+              alignItems='center'
+            >
+              <Typography variant='subtitle1'>Steam Pressure:</Typography>
+              <Box display='flex' alignItems='center'>
+                {/* <Typography variant='body1' style={{ marginRight: '8px' }}>
+                    Select Water Level:
+                  </Typography> */}
+                <Button variant='outlined' onClick={decreaseeSteam}>
+                  -
+                </Button>
+                <span style={{ margin: '0 10px' }}>{steamPressure}</span>
+                <Button variant='outlined' onClick={increaseSteam}>
+                  +
+                </Button>
+              </Box>
+            </Box>
           </FormControl>
 
           <FormControl fullWidth margin='normal'>
@@ -209,11 +237,11 @@ const BoilerModal = ({ open, onClose }) => {
                 {/* <Typography variant='body1' style={{ marginRight: '8px' }}>
                     Select Water Level:
                   </Typography> */}
-                <Button variant='outlined' onClick={handleDecrement}>
+                <Button variant='outlined' onClick={decreaseWaterLevel}>
                   -
                 </Button>
                 <span style={{ margin: '0 10px' }}>{waterLevel}</span>
-                <Button variant='outlined' onClick={handleIncrement}>
+                <Button variant='outlined' onClick={increaseWaterLevel}>
                   +
                 </Button>
               </Box>
@@ -240,14 +268,22 @@ const BoilerModal = ({ open, onClose }) => {
         </DialogContent>
 
         <DialogActions>
-          <Button onClick={onClose}>Cancel</Button>
+          <Button
+            onClick={() => {
+              setDefault();
+              onClose();
+            }}
+          >
+            Cancel
+          </Button>
           <Button
             disabled={
               steamPressure === '' ||
               mainValveControls === '' ||
               feedPump1 === '' ||
               feedPump2 === '' ||
-              waterLevel === 0
+              waterLevel === 0 ||
+              woodInput === ''
             }
             onClick={handleClickOpen}
             variant='contained'
@@ -257,7 +293,6 @@ const BoilerModal = ({ open, onClose }) => {
           </Button>
         </DialogActions>
       </Dialog>
-
       <Dialog open={openDialog} onClose={handleClose}>
         <DialogTitle id='alert-dialog-title'>Confirm Data?</DialogTitle>
         <DialogContent>
@@ -269,6 +304,7 @@ const BoilerModal = ({ open, onClose }) => {
               <p>Feed Pump 1: {feedPump1}</p>
               <p>Feed Pump 2: {feedPump2}</p>
               <p>Water Level: {waterLevel}</p>
+              <p>Wood Amount: {woodAmount}</p>
             </div>
           </DialogContentText>
         </DialogContent>
