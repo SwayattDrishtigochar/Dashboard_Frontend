@@ -62,7 +62,7 @@ const DashboardScreen = () => {
       <AdminHeader />
       <Box width='100%' display='flex' flexDirection='column' mr={'20px'}>
         <Grid container spacing={1} width='100%' m={'10px'}>
-          <Grid item xs={12} xl={6}>
+          <Grid item xs={12} md={6} xl={6}>
             <Box
               sx={{ p: 2, background: '#fefefe' }}
               border='1px solid black'
@@ -106,7 +106,7 @@ const DashboardScreen = () => {
             </Box>
           </Grid>
           {/*  */}
-          <Grid item xs={12} xl={6}>
+          <Grid item xs={12} md={6} xl={6}>
             <Box
               sx={{ p: 2, background: '#fefefe' }}
               border='1px solid black'

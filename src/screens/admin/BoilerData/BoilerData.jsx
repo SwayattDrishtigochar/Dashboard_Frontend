@@ -32,6 +32,7 @@ const BoilerData = () => {
 
   useEffect(() => {
     if (data) {
+      console.log(data);
       setBoiler(data.data);
       setTotalRecords(data.totalDocuments);
     }
@@ -63,6 +64,12 @@ const BoilerData = () => {
     {
       field: 'waterLevel',
       headerName: 'Water Level',
+      flex: 1,
+      align: 'center',
+    },
+    {
+      field: 'woodAmount',
+      headerName: 'Wood Amount',
       flex: 1,
       align: 'center',
     },
