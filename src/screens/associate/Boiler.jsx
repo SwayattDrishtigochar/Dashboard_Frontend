@@ -1,6 +1,7 @@
 import { useEffect, useState } from 'react';
 import {
   TableContainer,
+  Paper,
   Table,
   TableHead,
   TableRow,
@@ -134,9 +135,10 @@ const Boiler = () => {
           width: '100px',
           height: '100px',
           borderRadius: '50%',
-          backgroundColor: 'primary.main',
+          backgroundColor: '#3dcc5b',
           color: 'white',
           fontSize: '3rem',
+          boxShadow: '0px 0px 10px 0px rgba(0,0,0,0.75)',
         }}
       >
         +
