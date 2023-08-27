@@ -139,7 +139,15 @@ const LoginScreen = () => {
             variant='contained'
             color='primary'
             className={classes.button}
-            sx={{ mt: 2, mb: 1 }}
+            sx={{
+              //change background color to white if isloading
+              backgroundColor: isLoading ? 'white' : 'primary.main',
+              mt: 2,
+              mb: 1,
+              position: 'relative',
+              width: '100%',
+              height: '50px',
+            }}
           >
             {isLoading ? <Loader /> : 'Log In'}
           </Button>

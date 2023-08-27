@@ -26,8 +26,7 @@ const Boiler = () => {
 
   const { boilerData } = useSelector((state) => state.boiler);
 
-  const { data, isLoading, refetch } = useGetBoilerDataQuery();
-  const [deleteBoilerData, response] = useDeleteBoilerDataMutation();
+  const { data, isLoading, isError } = useGetBoilerDataQuery();
 
   const dispatch = useDispatch();
 
@@ -43,11 +42,10 @@ const Boiler = () => {
 
   const handleClose = () => {
     setOpen(false);
-    // refetch();
   };
-  // console.log(boilerData);
-  if (isLoading) {
-    return <Loader />;
+
+  if (isError) {
+    toast.error('Cant load data');
   }
 
   return (
@@ -92,6 +90,7 @@ const Boiler = () => {
                 <TableCell style={{ textAlign: 'center' }}>Blow Down</TableCell> */}
               </TableRow>
             </TableHead>
+            {isLoading && <Loader />}
             <TableBody>
               {boilerData?.map((data, index) => (
                 <TableRow key={index}>
@@ -116,30 +115,6 @@ const Boiler = () => {
                   <TableCell style={{ textAlign: 'center' }}>
                     {data?.woodAmount}
                   </TableCell>
-                  {/* <TableCell style={{ textAlign: 'center' }}>
-                    {data.feedWater}
-                  </TableCell>
-                  <TableCell style={{ textAlign: 'center' }}>
-                    {data.blowDown}
-                  </TableCell> */}
-                  {/* {//! Removed for MVP} */}
-                  {/* <TableCell style={{ textAlign: 'center' }}>
-                    <Button color='primary' variant='outlined'>
-                      Edit
-                    </Button>
-                    <Button
-                      color='primary'
-                      variant='contained'
-                      onClick={(e) => {
-                        e.preventDefault();
-                        deleteBoilerData(data._id);
-                        dispatch(removeBoilerData(data._id));
-                        refetch();
-                      }}
-                    >
-                      Delete
-                    </Button>
-                  </TableCell> */}
                 </TableRow>
               ))}
             </TableBody>
@@ -149,14 +124,22 @@ const Boiler = () => {
       <Button
         onClick={handleOpen}
         sx={{
-          width: '100%',
-          background: 'black',
-          position: 'sticky',
-          bottom: '0',
-          margin: 'auto',
+          '&:hover': {
+            backgroundColor: 'primary.main',
+          },
+          position: 'fixed',
+          bottom: '20px',
+          right: '20px',
+          zIndex: '100',
+          width: '100px',
+          height: '100px',
+          borderRadius: '50%',
+          backgroundColor: 'primary.main',
+          color: 'white',
+          fontSize: '3rem',
         }}
       >
-        Add
+        +
       </Button>
 
       <BoilerModal open={open} onClose={handleClose} />
