@@ -257,6 +257,19 @@ li.hg-candidate-box-list-item:active {
   align-items: center !important;
 }
 
+.kioskboard-key-backspace {
+  display: flex !important;
+  justify-content: center !important;
+  align-items: center !important;
+}
+
+#KioskBoard-VirtualKeyboard .kioskboard-row span[class^='kioskboard-key'] svg {
+  position: absolute;
+  z-index: 10;
+  left: 100px !important;
+  top: 25% !important;
+}
+
 @media (min-width: 1080px) {
   #KioskBoard-VirtualKeyboard {
     display: none !important;
