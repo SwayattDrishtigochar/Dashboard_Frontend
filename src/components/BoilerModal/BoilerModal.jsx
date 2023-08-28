@@ -94,6 +94,7 @@ const BoilerModal = ({ open, onClose }) => {
       dispatch(
         addBoilerData([
           ...boilerData,
+
           {
             steamPressure,
             mainValveControls,
@@ -298,14 +299,14 @@ const BoilerModal = ({ open, onClose }) => {
         <DialogContent>
           <DialogContentText id='alert-dialog-description'>
             Are you sure to save this data?
-            <div>
-              <p>Steam Pressure: {steamPressure}</p>
-              <p>Main Valve Controls: {mainValveControls}</p>
-              <p>Feed Pump 1: {feedPump1}</p>
-              <p>Feed Pump 2: {feedPump2}</p>
-              <p>Water Level: {waterLevel}</p>
-              <p>Wood Amount: {woodAmount}</p>
-            </div>
+            <Box>
+              <Typography>Steam Pressure: {steamPressure}</Typography>
+              <Typography>Main Valve Controls: {mainValveControls}</Typography>
+              <Typography>Feed Pump 1: {feedPump1}</Typography>
+              <Typography>Feed Pump 2: {feedPump2}</Typography>
+              <Typography>Water Level: {waterLevel}</Typography>
+              <Typography>Wood Amount: {woodAmount}</Typography>
+            </Box>
           </DialogContentText>
         </DialogContent>
         <DialogActions>

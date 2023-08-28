@@ -24,10 +24,11 @@ import Header from '../../components/Header/Header';
 
 const Boiler = () => {
   const [open, setOpen] = useState(false);
+  const [clock, setClock] = useState('{time}');
 
   const { boilerData } = useSelector((state) => state.boiler);
 
-  const { data, isLoading, isError } = useGetBoilerDataQuery();
+  const { data, isLoading, isError, refetch } = useGetBoilerDataQuery();
 
   const dispatch = useDispatch();
 
@@ -35,7 +36,19 @@ const Boiler = () => {
     if (data) {
       dispatch(addBoilerData(data.data));
     }
+    refetch();
   }, [data, dispatch]);
+
+  useEffect(() => {
+    // add date and time to clock
+    const interval = setInterval(() => {
+      const date = new Date();
+      setClock(date.toLocaleString());
+    }, 1000);
+    return () => {
+      clearInterval(interval);
+    };
+  }, []);
 
   const handleOpen = () => {
     setOpen(true);
@@ -53,6 +66,18 @@ const Boiler = () => {
     <>
       <Header />
       <Box position='relative'>
+        <Typography
+          position={'absolute'}
+          top={'-5px'}
+          right={'20px'}
+          fontWeight={'bold'}
+          border={'1px solid black'}
+          padding={'5px'}
+          borderRadius={'5px'}
+          boxShadow={'0px 0px 10px 0px rgba(0,0,0,0.75)'}
+        >
+          {clock}
+        </Typography>
         <Typography
           variant='h5'
           align='center'
@@ -102,8 +127,15 @@ const Boiler = () => {
                 <TableCell style={{ textAlign: 'center' }}>Blow Down</TableCell> */}
               </TableRow>
             </TableHead>
-            {isLoading && <Loader />}
+
             <TableBody>
+              {isLoading && (
+                <TableRow>
+                  <TableCell colSpan={7} style={{ textAlign: 'center' }}>
+                    <Loader />
+                  </TableCell>
+                </TableRow>
+              )}
               {boilerData?.map((data, index) => (
                 <TableRow key={index}>
                   <TableCell style={{ textAlign: 'center' }}>

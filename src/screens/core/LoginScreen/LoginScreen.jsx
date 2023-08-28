@@ -67,8 +67,6 @@ const LoginScreen = () => {
     setShowPassword((prevShowPassword) => !prevShowPassword);
   };
 
-  console.log('LoginScreen rendered');
-
   return (
     <FormContainer>
       <Box
