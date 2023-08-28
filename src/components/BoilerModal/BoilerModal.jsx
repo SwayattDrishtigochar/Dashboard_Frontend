@@ -9,7 +9,6 @@ import {
   FormControl,
   Radio,
   RadioGroup,
-  TextField,
   Typography,
   Box,
   DialogContentText,
@@ -45,22 +44,20 @@ const BoilerModal = ({ open, onClose }) => {
   };
 
   const increaseWaterLevel = () => {
-    setWaterLevel((prevValue) => prevValue + 5);
+    setWaterLevel((prevValue) => Math.min(prevValue + 5, 100));
   };
 
   const decreaseWaterLevel = () => {
-    if (waterLevel > 0) {
-      setWaterLevel((prevValue) => prevValue - 5);
-    }
+    setWaterLevel((prevValue) => Math.max(prevValue - 5, 0));
   };
 
   const increaseSteam = () => {
-    setSteamPressure((prevValue) => prevValue + 5);
+    setSteamPressure((prevValue) => Math.min(prevValue + 5, 300));
   };
 
-  const decreaseeSteam = () => {
+  const decreaseSteam = () => {
     if (steamPressure > 0) {
-      setSteamPressure((prevValue) => prevValue - 5);
+      setSteamPressure((prevValue) => Math.max(prevValue - 5, 0));
     }
   };
 
@@ -159,7 +156,7 @@ const BoilerModal = ({ open, onClose }) => {
                 {/* <Typography variant='body1' style={{ marginRight: '8px' }}>
                     Select Water Level:
                   </Typography> */}
-                <Button variant='outlined' onClick={decreaseeSteam}>
+                <Button variant='outlined' onClick={decreaseSteam}>
                   -
                 </Button>
                 <span style={{ margin: '0 10px' }}>{steamPressure}</span>

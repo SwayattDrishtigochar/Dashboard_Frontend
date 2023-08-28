@@ -53,9 +53,7 @@ const Header = () => {
   return (
     <AppBar position='static' className={classes.appBar}>
       <Toolbar>
-        <Link to='/'>
-          <img src={Logo} alt='Logo' className={classes.logo} />
-        </Link>
+        <img src={Logo} alt='Logo' className={classes.logo} />
         <Typography variant='h6' className={classes.title}>
           IMPCOPS
         </Typography>
