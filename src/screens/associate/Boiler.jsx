@@ -37,7 +37,7 @@ const Boiler = () => {
       dispatch(addBoilerData(data.data));
     }
     refetch();
-  }, [data, dispatch]);
+  }, [data, dispatch, refetch]);
 
   useEffect(() => {
     // add date and time to clock
