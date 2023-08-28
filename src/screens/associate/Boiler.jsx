@@ -58,10 +58,6 @@ const Boiler = () => {
     setOpen(false);
   };
 
-  if (isError && !isLoading) {
-    toast.error('Cant load data');
-  }
-
   return (
     <>
       <Header />
