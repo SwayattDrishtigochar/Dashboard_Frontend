@@ -24,11 +24,14 @@ const BoilerData = () => {
     setRowsPerPage(parseInt(event.target.value));
     setPage(0);
   };
-  const { data, isLoading } = useGetAllBoilerDataQuery({
-    page: (page + 1).toString(),
-    limit: rowsPerPage.toString(),
-    date: date ? new Date(date).toISOString().split('T')[0] : '',
-  });
+  const { data, isLoading } = useGetAllBoilerDataQuery(
+    {
+      page: (page + 1).toString(),
+      limit: rowsPerPage.toString(),
+      date: date ? new Date(date).toISOString().split('T')[0] : '',
+    },
+    {}
+  );
 
   useEffect(() => {
     if (data) {

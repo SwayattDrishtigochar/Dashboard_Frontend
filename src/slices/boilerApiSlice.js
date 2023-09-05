@@ -32,6 +32,13 @@ export const boilerApiSlice = apiSlice.injectEndpoints({
         credentials: 'include',
       }),
     }),
+    getAllWoodByDate: builder.query({
+      query: () => ({
+        url: `${BOILER_URL}/wood`,
+        credentials: 'include',
+        method: 'GET',
+      }),
+    }),
   }),
 });
 
@@ -40,4 +47,5 @@ export const {
   useGetBoilerDataQuery,
   useDeleteBoilerDataMutation,
   useGetAllBoilerDataQuery,
+  useGetAllWoodByDateQuery,
 } = boilerApiSlice;

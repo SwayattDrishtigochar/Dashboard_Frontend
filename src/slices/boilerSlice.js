@@ -5,7 +5,7 @@ const initialState = {
 };
 
 const boilerSlice = createSlice({
-  name: 'tableData',
+  name: 'boilerData',
   initialState,
   reducers: {
     addBoilerData: (state, action) => {
@@ -13,7 +13,7 @@ const boilerSlice = createSlice({
     },
     removeBoilerData: (state, action) => {
       const idToRemove = action.payload;
-      return state.boilerData.filter((data) => data._id !== idToRemove);
+      return state.filter((data) => data._id !== idToRemove);
     },
   },
 });

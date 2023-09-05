@@ -14,34 +14,44 @@ import { useDispatch, useSelector } from 'react-redux';
 import BoilerModal from '../../components/BoilerModal/BoilerModal';
 import { useGetBoilerDataQuery } from '../../slices/boilerApiSlice';
 import { addBoilerData } from '../../slices/boilerSlice';
+// import { useGetSensorStateQuery } from '../../slices/sensorApiSlice';
 import Loader from '../../components/Loader/Loader';
 import Header from '../../components/Header/Header';
 import Clock from '../../components/Clock/Clock';
+import BoilderDataTableRow from '../../components/BoilderDataTableRow/BoilderDataTableRow';
 
 const Boiler = () => {
   const [open, setOpen] = useState(false);
 
   const { boilerData } = useSelector((state) => state.boiler);
 
-  const { data, isLoading, refetch } = useGetBoilerDataQuery();
+  const { data, isFetching, refetch } = useGetBoilerDataQuery(
+    {},
+    {
+      refetchOnMountOrArgChange: true,
+      skip: false,
+      // pollingInterval: 1000,
+    }
+  );
 
   const dispatch = useDispatch();
 
   useEffect(() => {
     if (data) {
-      dispatch(addBoilerData(data.data));
+      dispatch(addBoilerData(data));
     }
-    refetch();
-  }, [data, dispatch, refetch]);
 
-  const handleOpen = () => {
-    setOpen(true);
-  };
+    // refetch();
+  }, [data]);
+
+  // const handleOpen = () => {
+  //   setOpen(true);
+  // };
 
   const handleClose = () => {
     setOpen(false);
   };
-
+  console.log(boilerData);
   return (
     <>
       <Header />
@@ -96,46 +106,27 @@ const Boiler = () => {
                 <TableCell style={{ textAlign: 'center' }}>Blow Down</TableCell> */}
               </TableRow>
             </TableHead>
-
             <TableBody>
-              {isLoading && (
+              {/* {isFetching && (
                 <TableRow>
-                  <TableCell colSpan={7} style={{ textAlign: 'center' }}>
+                  <TableCell
+                    colSpan={7}
+                    style={{ textAlign: 'center' }}
+                    sx={{
+                      position: 'relative',
+                    }}
+                  >
                     <Loader />
                   </TableCell>
                 </TableRow>
-              )}
-              {boilerData?.map((data, index) => (
-                <TableRow key={index}>
-                  <TableCell style={{ textAlign: 'center' }}>
-                    {data?.time}
-                  </TableCell>
-                  <TableCell style={{ textAlign: 'center' }}>
-                    {data?.steamPressure}
-                  </TableCell>
-                  <TableCell style={{ textAlign: 'center' }}>
-                    {data?.mainValveControls}
-                  </TableCell>
-                  <TableCell style={{ textAlign: 'center' }}>
-                    {data?.feedPump1}
-                  </TableCell>
-                  <TableCell style={{ textAlign: 'center' }}>
-                    {data?.feedPump2}
-                  </TableCell>
-                  <TableCell style={{ textAlign: 'center' }}>
-                    {data?.waterLevel}
-                  </TableCell>
-                  <TableCell style={{ textAlign: 'center' }}>
-                    {data?.woodAmount}
-                  </TableCell>
-                </TableRow>
-              ))}
+              )} */}
+              <BoilderDataTableRow boilerData={boilerData} />
             </TableBody>
           </Table>
         </TableContainer>
       </Box>
       <Button
-        onClick={handleOpen}
+        onClick={() => setOpen(true)}
         sx={{
           '&:hover': {
             backgroundColor: '#3dcc5b',
