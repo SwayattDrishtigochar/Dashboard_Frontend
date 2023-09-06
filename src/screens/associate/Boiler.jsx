@@ -51,7 +51,7 @@ const Boiler = () => {
   const handleClose = () => {
     setOpen(false);
   };
-  console.log(boilerData);
+
   return (
     <>
       <Header />
@@ -74,21 +74,38 @@ const Boiler = () => {
           <Table>
             <TableHead>
               <TableRow>
-                <TableCell style={{ textAlign: 'center' }}>Time</TableCell>
-                <TableCell style={{ textAlign: 'center' }}>
+                <TableCell
+                  style={{ textAlign: 'center', fontWeight: 'bolder' }}
+                >
+                  Time
+                </TableCell>
+                <TableCell
+                  style={{ textAlign: 'center', fontWeight: 'bolder' }}
+                >
                   {/* show it as power of 2 */}
                   Steam Pressure (psi)
                 </TableCell>
-                <TableCell style={{ textAlign: 'center' }}>
+                <TableCell
+                  style={{ textAlign: 'center', fontWeight: 'bolder' }}
+                >
                   Main Steam Valve Controls
                 </TableCell>
-                <TableCell colSpan={2} style={{ textAlign: 'center' }}>
+                <TableCell
+                  colSpan={2}
+                  style={{ textAlign: 'center', fontWeight: 'bolder' }}
+                >
                   Feed Pump
                 </TableCell>
-                <TableCell style={{ textAlign: 'center' }}>
+                <TableCell
+                  style={{ textAlign: 'center', fontWeight: 'bolder' }}
+                >
                   Water Level (%)
                 </TableCell>
-                <TableCell style={{ textAlign: 'center' }}>Wood (kg)</TableCell>
+                <TableCell
+                  style={{ textAlign: 'center', fontWeight: 'bolder' }}
+                >
+                  Wood (kg)
+                </TableCell>
                 {/* <TableCell colSpan={2} style={{ textAlign: 'center' }}>
                   Water Analysis
                 </TableCell> */}
@@ -97,8 +114,17 @@ const Boiler = () => {
                 <TableCell />
                 <TableCell />
                 <TableCell />
-                <TableCell style={{ textAlign: 'center' }}>Number 1</TableCell>
-                <TableCell style={{ textAlign: 'center' }}>Number 2</TableCell>
+                <TableCell
+                  style={{ textAlign: 'center', fontWeight: 'bolder' }}
+                >
+                  Number 1
+                </TableCell>
+                <TableCell
+                  style={{ textAlign: 'center', fontWeight: 'bolder' }}
+                >
+                  Number 2
+                </TableCell>
+                <TableCell />
                 <TableCell />
                 {/* <TableCell style={{ textAlign: 'center' }}>
                   Feed Water
@@ -107,7 +133,7 @@ const Boiler = () => {
               </TableRow>
             </TableHead>
             <TableBody>
-              {/* {isFetching && (
+              {isFetching && (
                 <TableRow>
                   <TableCell
                     colSpan={7}
@@ -119,7 +145,7 @@ const Boiler = () => {
                     <Loader />
                   </TableCell>
                 </TableRow>
-              )} */}
+              )}
               <BoilderDataTableRow boilerData={boilerData} />
             </TableBody>
           </Table>

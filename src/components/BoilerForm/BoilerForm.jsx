@@ -256,7 +256,7 @@ const BoilerForm = ({ closeModal }) => {
       </FormControl>
       <Button
         fullWidth
-        variant='outlined'
+        variant='contained'
         type='submit'
         sx={{ m: '5px' }}
         disabled={
