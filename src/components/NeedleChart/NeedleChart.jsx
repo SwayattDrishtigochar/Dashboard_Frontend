@@ -1,18 +1,19 @@
-import React from 'react';
+import { Box } from '@mui/material';
 import { PieChart, Pie, Cell } from 'recharts';
 
 const RADIAN = Math.PI / 180;
 const data = [
-  { name: 'A', value: 80, color: '#ff5454' },
-  { name: 'B', value: 45, color: '#f0d613' },
-  { name: 'C', value: 25, color: '#3dcc5b' },
+  { name: 'A', value: 50, color: '#3dcc5b' },
+  { name: 'B', value: 10, color: '#f0d613' },
+  { name: 'C', value: 40, color: '#ff5454' },
 ];
-const cx = 200;
+const cx = 190;
 const cy = 150;
-const iR = 70;
+const iR = 50;
 const oR = 100;
 
 const NeedleChart = ({ value }) => {
+  //* fuction to draw the needle
   const needle = (value, data, cx, cy, iR, oR, color) => {
     let total = 0;
     data.forEach((v) => {
@@ -37,15 +38,24 @@ const NeedleChart = ({ value }) => {
       <path
         key='path'
         d={`M${xba} ${yba}L${xbb} ${ybb} L${xp} ${yp} L${xba} ${yba}`}
-        stroke='#none'
+        stroke='none'
         fill={color}
       />,
     ];
   };
   return (
+    // <Box
+    //   display={'flex'}
+    //   justifyContent={'center'}
+    //   alignItems={'center'}
+    //   width={'100%'}
+    //   height={'100%'}
+    // >
     <PieChart width={400} height={250}>
       <Pie
         dataKey='value'
+        cornerRadius={5}
+        paddingAngle={7}
         startAngle={180}
         endAngle={0}
         data={data}
@@ -62,6 +72,7 @@ const NeedleChart = ({ value }) => {
       </Pie>
       {needle(value, data, cx, cy, iR, oR, '#000000')}
     </PieChart>
+    // </Box>
   );
 };
 

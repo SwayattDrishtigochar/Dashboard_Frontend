@@ -1,4 +1,4 @@
-import { Box, Grid, Paper, Typography, Stack, Button } from '@mui/material';
+import { Box, Grid, Paper, Typography } from '@mui/material';
 import {
   LineChart,
   Line,
@@ -8,55 +8,94 @@ import {
   ResponsiveContainer,
 } from 'recharts';
 import AdminHeader from './AdminHeader/AdminHeader';
-import NeedleChart from '../../components/NeedleChart/NeedleChart';
 import BoilerImg from '../../assets/boiler.png';
 import AmbientData from '../../components/AmbientData/AmbientData';
+import OeeChart from '../../components/OeeChart/OeeChart';
 
 const DashboardScreen = () => {
-  // const boilerData = [];
+  const temperatureData = [
+    {
+      time: '00:00:00',
+      temperature: 34.7,
+    },
+    {
+      time: '00:30:00',
+      temperature: 42.3,
+    },
+    {
+      time: '01:00:00',
+      temperature: 38.9,
+    },
+    {
+      time: '01:30:00',
+      temperature: 45.1,
+    },
+    {
+      time: '02:00:00',
+      temperature: 31.5,
+    },
+    {
+      time: '02:30:00',
+      temperature: 47.2,
+    },
+    {
+      time: ' 03:00:00',
+      temperature: 36.8,
+    },
+    {
+      time: '03:30:00',
+      temperature: 49.8,
+    },
+    {
+      time: '04:00:00',
+      temperature: 32.4,
+    },
+    {
+      time: '04:30:00',
+      temperature: 41.0,
+    },
+  ];
 
-  const lineData = [
+  const steamPressureData = [
     {
-      name: 'Page A',
-      uv: 4000,
-      pv: 2400,
-      amt: 2400,
+      time: '00:00',
+      pressure: parseFloat((Math.random() * 50).toFixed(1)),
     },
     {
-      name: 'Page B',
-      uv: 3000,
-      pv: 1398,
-      amt: 2210,
+      time: '01:00',
+      pressure: parseFloat((Math.random() * 50).toFixed(1)),
     },
     {
-      name: 'Page C',
-      uv: 2000,
-      pv: 9800,
-      amt: 2290,
+      time: '02:00',
+      pressure: parseFloat((Math.random() * 50).toFixed(1)),
     },
     {
-      name: 'Page D',
-      uv: 2780,
-      pv: 3908,
-      amt: 2000,
+      time: '03:00',
+      pressure: parseFloat((Math.random() * 50).toFixed(1)),
     },
     {
-      name: 'Page E',
-      uv: 1890,
-      pv: 4800,
-      amt: 2181,
+      time: '04:00',
+      pressure: parseFloat((Math.random() * 50).toFixed(1)),
     },
     {
-      name: 'Page F',
-      uv: 2390,
-      pv: 3800,
-      amt: 2500,
+      time: '05:00',
+      pressure: parseFloat((Math.random() * 50).toFixed(1)),
     },
     {
-      name: 'Page G',
-      uv: 3490,
-      pv: 4300,
-      amt: 2100,
+      time: '06:00',
+      pressure: parseFloat((Math.random() * 50).toFixed(1)),
+    },
+    {
+      time: '07:00',
+      pressure: parseFloat((Math.random() * 50).toFixed(1)),
+    },
+    {
+      time: '08:00',
+      pressure: parseFloat((Math.random() * 50).toFixed(1)),
+    },
+    {
+      time: '09:00',
+      pressure: parseFloat((Math.random() * 50).toFixed(1)),
     },
   ];
 
@@ -80,8 +119,11 @@ const DashboardScreen = () => {
                       textAlign: 'center',
                     }}
                   >
-                    <NeedleChart value={10} />
-                    <Typography>OEE</Typography>
+                    {/* Add this line */}
+                    <OeeChart />
+                    <Typography fontWeight={'bold'}>
+                      Steam Pressure
+                    </Typography>{' '}
                   </Paper>
                 </Grid>
                 <Grid item xl={6} xs={12}>
@@ -94,15 +136,19 @@ const DashboardScreen = () => {
                     }}
                   >
                     <ResponsiveContainer width={'100%'} height={250}>
-                      <LineChart data={lineData}>
-                        <XAxis dataKey='name' />
+                      <LineChart data={steamPressureData}>
+                        <XAxis dataKey='time' />
                         <YAxis />
                         <CartesianGrid stroke='#eee' strokeDasharray='5 5' />
                         {/* <Line type='monotone' dataKey='uv' stroke='#8884d8' /> */}
-                        <Line type='monotone' dataKey='pv' stroke='#82ca9d' />
+                        <Line
+                          type='monotone'
+                          dataKey='pressure'
+                          stroke='#82ca9d'
+                        />
                       </LineChart>
                     </ResponsiveContainer>
-                    <Typography>Performance Trend</Typography>
+                    <Typography fontWeight={'bold'}>Steam Pressure</Typography>{' '}
                   </Paper>
                 </Grid>
               </Grid>
@@ -124,8 +170,8 @@ const DashboardScreen = () => {
                       textAlign: 'center',
                     }}
                   >
-                    <NeedleChart value={10} />
-                    <Typography>OEE</Typography>
+                    <OeeChart />
+                    <Typography fontWeight={'bold'}>OEE</Typography>
                   </Paper>
                 </Grid>
                 <Grid item xl={6} xs={12}>
@@ -138,15 +184,21 @@ const DashboardScreen = () => {
                     }}
                   >
                     <ResponsiveContainer width={'100%'} height={250}>
-                      <LineChart data={lineData}>
-                        <XAxis dataKey='name' />
-                        <YAxis />
+                      <LineChart data={temperatureData}>
+                        <XAxis dataKey='time' />
+                        <YAxis dataKey={'temperature'} />
                         <CartesianGrid stroke='#eee' strokeDasharray='5 5' />
                         {/* <Line type='monotone' dataKey='uv' stroke='#8884d8' /> */}
-                        <Line type='monotone' dataKey='pv' stroke='#82ca9d' />
+                        <Line
+                          type='monotone'
+                          dataKey='temperature'
+                          stroke='#82ca9d'
+                        />
                       </LineChart>
                     </ResponsiveContainer>
-                    <Typography>Performance Trend</Typography>
+                    <Typography fontWeight={'bold'}>
+                      Performance Trend
+                    </Typography>
                   </Paper>
                 </Grid>
               </Grid>

@@ -30,7 +30,10 @@ const BoilerData = () => {
       limit: rowsPerPage.toString(),
       date: date ? new Date(date).toISOString().split('T')[0] : '',
     },
-    {}
+    {
+      refetchOnMountOrArgChange: true,
+      skip: false,
+    }
   );
 
   useEffect(() => {
