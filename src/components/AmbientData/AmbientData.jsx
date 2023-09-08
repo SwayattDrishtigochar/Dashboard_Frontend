@@ -173,7 +173,7 @@ const AmbientData = () => {
 
             {/* Use the Thermometer icon */}
             <div>
-              <Typography variant='h6'>Water Level</Typography>
+              <Typography variant='h6'>Wood Amount</Typography>
               <Typography variant='body1'>
                 {woodData?.totalWoodAmount || 'No Data'}
               </Typography>
