@@ -1,6 +1,12 @@
 import { useEffect, useState } from 'react';
 import AdminHeader from '../AdminHeader/AdminHeader';
-import { Box, TablePagination, TextField, Paper } from '@mui/material';
+import {
+  Box,
+  TablePagination,
+  TextField,
+  Paper,
+  Typography,
+} from '@mui/material';
 import { DataGrid, GridToolbar } from '@mui/x-data-grid';
 import { useGetAllBoilerDataQuery } from '../../../slices/boilerApiSlice';
 
@@ -103,6 +109,16 @@ const BoilerData = () => {
             padding: '10px',
           }}
         >
+          <Typography
+            variant='h5'
+            align='center'
+            style={{
+              marginBottom: '10px',
+              fontWeight: 'bold',
+            }}
+          >
+            Boiler Data
+          </Typography>
           <DataGrid
             sx={{
               '& .MuiDataGrid-columnHeaderTitleContainer': {
