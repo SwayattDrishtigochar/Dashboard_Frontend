@@ -2,7 +2,7 @@ import { useEffect, useState } from 'react';
 import { Grid, TextField, Button, Box } from '@mui/material';
 import Loader from '../../components/Loader/Loader';
 import RequestCard from '../RequestCard/RequestCard';
-import { useGetRequestsQuery } from '../../slices/adminApiSlice';
+import { useGetRequestsQuery } from '../../slices/api/adminApiSlice';
 import { useSelector, useDispatch } from 'react-redux';
 import { setRequests } from '../../slices/requestSlice';
 

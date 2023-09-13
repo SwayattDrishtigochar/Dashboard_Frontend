@@ -1,4 +1,4 @@
-import React, { useState, useEffect } from 'react';
+import { useState, useEffect } from 'react';
 import {
   FormControl,
   Box,
@@ -11,7 +11,7 @@ import {
 // import { useDispatch, useSelector } from 'react-redux';
 // import { addBoilerData } from '../../slices/boilerSlice';
 // import { useSetBoilerDataMutation } from '../../slices/boilerApiSlice';
-import { useGetSensorStateQuery } from '../../slices/sensorApiSlice';
+import { useGetSensorStateQuery } from '../../slices/api/sensorApiSlice';
 // import { toast } from 'react-toastify';
 import BoilerConfirmDialog from '../BoilerConfirmDialog/BoilerConfirmDialog';
 import Loader from '../Loader/Loader';
@@ -66,30 +66,6 @@ const BoilerForm = ({ closeModal }) => {
     }
   };
 
-  // const handleSave = async (e) => {
-  //   e.preventDefault();
-
-  //   try {
-  //     const res = await setBoilerData({
-  //       steamPressure,
-  //       mainValveControls,
-  //       feedPump1,
-  //       feedPump2,
-  //       waterLevel,
-  //       // feedWater,
-  //       // blowDown,
-  //       woodAmount,
-  //       time: new Date(),
-  //     }).unwrap();
-
-  //     dispatch(addBoilerData([...boilerData, res]));
-
-  //     closeModal();
-  //   } catch (err) {
-  //     toast.error(err?.data?.message || err?.error);
-  //   }
-  // };
-
   const setDefault = () => {
     setSteamPressure(0);
     setMainValveControls('');
@@ -100,28 +76,25 @@ const BoilerForm = ({ closeModal }) => {
     setWoodAmount(0);
   };
 
-  const handleClickOpen = () => {
-    setOpenDialog(true);
-  };
+  // const handleClickOpen = () => {
+  //   setOpenDialog(true);
+  // };
 
   const handleClose = () => {
     setOpenDialog(false);
   };
 
-  const {
-    data: feedPump1State,
-    isFetching: isfeedPump1StateLoading,
-    refetch: feedPump1Refecth,
-  } = useGetSensorStateQuery(
-    {
-      collection: 'feedpump1',
-    },
-    {
-      refetchOnMountOrArgChange: true,
-      skip: false,
-      // pollingInterval: 1000,
-    }
-  );
+  const { data: feedPump1State, isFetching: isfeedPump1StateLoading } =
+    useGetSensorStateQuery(
+      {
+        collection: 'feedpump1',
+      },
+      {
+        refetchOnMountOrArgChange: true,
+        skip: false,
+        // pollingInterval: 1000,
+      }
+    );
 
   const { data: feedPump2State, isFetching: isfeedPump2StateLoading } =
     useGetSensorStateQuery(

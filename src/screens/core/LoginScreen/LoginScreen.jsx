@@ -10,7 +10,7 @@ import {
   Typography,
 } from '@mui/material';
 import { useDispatch, useSelector } from 'react-redux';
-import { useLoginMutation } from '../../../slices/authApiSlice';
+import { useLoginMutation } from '../../../slices/api/authApiSlice';
 import { setCredentials } from '../../../slices/authSlice';
 import { toast } from 'react-toastify';
 import {
@@ -21,8 +21,6 @@ import {
 
 import FormContainer from '../../../components/FormContainer/FormContainer';
 import Loader from '../../../components/Loader/Loader';
-import useStyles from './styles';
-// import KioskBoard from 'kioskboard';
 import Keyboard from '../../../components/Keyboard/Keyboard';
 
 const LoginScreen = () => {
@@ -31,7 +29,6 @@ const LoginScreen = () => {
 
   const navigate = useNavigate();
   const dispatch = useDispatch();
-  const classes = useStyles();
 
   const [showPassword, setShowPassword] = useState(false);
 
@@ -74,7 +71,6 @@ const LoginScreen = () => {
           display: 'flex',
           flexDirection: 'column',
           alignItems: 'center',
-          marginTop: 3,
         }}
       >
         <Typography variant='h4' component='h2' gutterBottom>
@@ -106,7 +102,6 @@ const LoginScreen = () => {
               type={showPassword ? 'text' : 'password'}
               ref={passwordRef}
               error={isError}
-              // helperText={error}
               InputProps={{
                 startAdornment: (
                   <InputAdornment position='start'>
@@ -136,14 +131,15 @@ const LoginScreen = () => {
             type='submit'
             variant='contained'
             color='primary'
-            className={classes.button}
             sx={{
-              //change background color to white if isloading
+              borderRadius: '10px !important',
+              padding: '10px !important',
+              margin: '5px 5px !important',
+              width: '100%',
               backgroundColor: isLoading ? 'white' : 'primary.main',
               mt: 2,
               mb: 1,
               position: 'relative',
-              width: '100%',
               height: '50px',
             }}
           >

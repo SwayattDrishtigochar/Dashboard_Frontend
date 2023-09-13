@@ -3,7 +3,7 @@ import { useDispatch, useSelector } from 'react-redux';
 import { TextField, Button } from '@mui/material';
 import { toast } from 'react-toastify';
 import Loader from '../../../components/Loader/Loader';
-import { useUpdateUserMutation } from '../../../slices/userApiSlice';
+import { useUpdateUserMutation } from '../../../slices/api/userApiSlice';
 import { setCredentials } from '../../../slices/authSlice';
 
 import FormContainer from '../../../components/FormContainer/FormContainer';

@@ -1,4 +1,4 @@
-import { apiSlice } from '../slices/apiSlice';
+import { apiSlice } from './apiSlice';
 const SENSOR_URL = 'api/sensor';
 
 export const sensorAoiSlice = apiSlice.injectEndpoints({

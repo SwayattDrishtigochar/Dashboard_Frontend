@@ -1,4 +1,4 @@
-import { apiSlice } from '../slices/apiSlice';
+import { apiSlice } from './apiSlice';
 const BOILER_URL = 'api/boiler';
 
 export const boilerApiSlice = apiSlice.injectEndpoints({

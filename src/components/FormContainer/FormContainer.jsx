@@ -1,15 +1,26 @@
-import { Box, Container, Grid } from '@mui/material';
-import useStyles from './styles';
+import { Box, Grid } from '@mui/material';
 import ImgUrl from '../../assets/form.png';
 
 const FormContainer = ({ children }) => {
-  const classes = useStyles();
-
   return (
-    <Box className={classes.container}>
+    <Box
+      mt={'80px'}
+      sx={{
+        padding: (theme) => theme.spacing(1),
+        width: '100%',
+      }}
+    >
       <Grid container>
-        <Grid item lg={4} md={6} sm={12}>
-          <img src={ImgUrl} alt='Image' className={classes.image} />
+        <Grid
+          item
+          lg={4}
+          md={6}
+          sm={12}
+          sx={{
+            display: { xs: 'none', sm: 'none', md: 'none', lg: 'block' },
+          }}
+        >
+          <img src={ImgUrl} alt='Image' style={{ width: '100%' }} />
         </Grid>
         <Grid
           item

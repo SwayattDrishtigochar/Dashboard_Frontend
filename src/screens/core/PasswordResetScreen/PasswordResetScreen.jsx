@@ -9,7 +9,7 @@ import {
   IconButton,
   TextField,
 } from '@mui/material';
-import { useResetPasswordMutation } from '../../../slices/userApiSlice';
+import { useResetPasswordMutation } from '../../../slices/api/userApiSlice';
 import FormContainer from '../../../components/FormContainer/FormContainer';
 import Loader from '../../../components/Loader/Loader';
 import { toast } from 'react-toastify';

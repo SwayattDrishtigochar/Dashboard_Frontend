@@ -2,7 +2,7 @@ import { configureStore } from '@reduxjs/toolkit';
 import authReducer from './slices/authSlice';
 import requestReducer from './slices/requestSlice';
 import boilerReducer from './slices/boilerSlice';
-import { apiSlice } from './slices/apiSlice';
+import { apiSlice } from './slices/api/apiSlice';
 
 const store = configureStore({
   reducer: {

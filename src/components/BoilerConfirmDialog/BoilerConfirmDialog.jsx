@@ -10,7 +10,7 @@ import {
 } from '@mui/material';
 import { useDispatch, useSelector } from 'react-redux';
 import { addBoilerData } from '../../slices/boilerSlice';
-import { useSetBoilerDataMutation } from '../../slices/boilerApiSlice';
+import { useSetBoilerDataMutation } from '../../slices/api/boilerApiSlice';
 import { toast } from 'react-toastify';
 
 const BoilerConfirmDialog = ({

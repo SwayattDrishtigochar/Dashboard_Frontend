@@ -9,7 +9,7 @@ import {
   Modal,
   TextField,
 } from '@mui/material';
-import { useForgetPasswordMutation } from '../../../slices/userApiSlice';
+import { useForgetPasswordMutation } from '../../../slices/api/userApiSlice';
 import FormContainer from '../../../components/FormContainer/FormContainer';
 import Loader from '../../../components/Loader/Loader';
 import { toast } from 'react-toastify';

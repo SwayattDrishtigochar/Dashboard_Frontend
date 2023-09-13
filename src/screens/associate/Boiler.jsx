@@ -12,7 +12,7 @@ import {
 } from '@mui/material';
 import { useDispatch, useSelector } from 'react-redux';
 import BoilerModal from '../../components/BoilerModal/BoilerModal';
-import { useGetBoilerDataQuery } from '../../slices/boilerApiSlice';
+import { useGetBoilerDataQuery } from '../../slices/api/boilerApiSlice';
 import { addBoilerData } from '../../slices/boilerSlice';
 // import { useGetSensorStateQuery } from '../../slices/sensorApiSlice';
 import Loader from '../../components/Loader/Loader';
@@ -54,8 +54,8 @@ const Boiler = () => {
 
   return (
     <>
-      <Header />
-      <Box position='relative'>
+      {/* <Header /> */}
+      <Box position='relative' width={'100%'} mt={'80px'}>
         <Clock />
         <Typography
           variant='h5'

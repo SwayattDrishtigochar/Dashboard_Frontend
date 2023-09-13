@@ -2,7 +2,7 @@ import { Box, Grid, Paper, Typography } from '@mui/material';
 import {
   useGetBoilerDataQuery,
   useGetAllWoodByDateQuery,
-} from '../../slices/boilerApiSlice';
+} from '../../slices/api/boilerApiSlice';
 import Loader from '../Loader/Loader';
 import DeviceThermostatIcon from '@mui/icons-material/DeviceThermostat';
 import SpeedIcon from '@mui/icons-material/Speed';
@@ -24,6 +24,7 @@ const AmbientData = () => {
       // pollingInterval: 1000,
     }
   );
+
   const { data: woodData } = useGetAllWoodByDateQuery(
     {},
     { skip: false, refetchOnMountOrArgChange: true }
@@ -48,7 +49,7 @@ const AmbientData = () => {
     >
       <Grid container spacing={2} position={'relative'}>
         {isLoading && <Loader />}
-        <Grid item xs={6}>
+        <Grid item xs={12} md={6}>
           <Paper
             elevation={3}
             sx={{ p: 2, display: 'flex', alignItems: 'center' }}
@@ -62,13 +63,14 @@ const AmbientData = () => {
             />
 
             {/* Use the Thermometer icon */}
+
             <div>
               <Typography variant='h6'>Ambient Temperature</Typography>
               <Typography variant='body1'>Value 1</Typography>
             </div>
           </Paper>
         </Grid>
-        <Grid item xs={6}>
+        <Grid item xs={12} md={6}>
           <Paper
             elevation={3}
             sx={{ p: 2, display: 'flex', alignItems: 'center' }}
@@ -90,7 +92,7 @@ const AmbientData = () => {
             </div>
           </Paper>
         </Grid>
-        <Grid item xs={6}>
+        <Grid item xs={12} md={6}>
           <Paper
             elevation={3}
             sx={{ p: 2, display: 'flex', alignItems: 'center' }}
@@ -107,18 +109,18 @@ const AmbientData = () => {
             <div>
               <Typography variant='h6'>Feed Pump</Typography>
               <Typography variant='body1'>
-                {feedPump1 && feedPump2 === 'ON'
-                  ? 'Both ON'
+                {feedPump1 === 'ON' && feedPump2 === 'ON'
+                  ? 'Both pumps are ON'
                   : feedPump1 === 'ON'
-                  ? 'Pump1'
+                  ? 'Pump 1 is ON'
                   : feedPump2 === 'ON'
-                  ? 'Pump2'
+                  ? 'Pump 2 is ON'
                   : 'No Data'}
               </Typography>
             </div>
           </Paper>
         </Grid>
-        <Grid item xs={6}>
+        <Grid item xs={12} md={6}>
           <Paper
             elevation={3}
             sx={{ p: 2, display: 'flex', alignItems: 'center' }}
@@ -138,7 +140,7 @@ const AmbientData = () => {
             </div>
           </Paper>
         </Grid>
-        <Grid item xs={6}>
+        <Grid item xs={12} md={6}>
           <Paper
             elevation={3}
             sx={{ p: 2, display: 'flex', alignItems: 'center' }}
@@ -154,11 +156,13 @@ const AmbientData = () => {
             {/* Use the Thermometer icon */}
             <div>
               <Typography variant='h6'>Water Level</Typography>
-              <Typography variant='body1'>{waterLevel || 'No Data'}</Typography>
+              <Typography variant='body1'>
+                {`${waterLevel} %` || 'No Data'}
+              </Typography>
             </div>
           </Paper>
         </Grid>
-        <Grid item xs={6}>
+        <Grid item xs={12} md={6}>
           <Paper
             elevation={3}
             sx={{ p: 2, display: 'flex', alignItems: 'center' }}
@@ -175,7 +179,7 @@ const AmbientData = () => {
             <div>
               <Typography variant='h6'>Wood Amount</Typography>
               <Typography variant='body1'>
-                {woodData?.totalWoodAmount || 'No Data'}
+                {`${woodData?.totalWoodAmount} kg` || 'No Data'}
               </Typography>
             </div>
           </Paper>

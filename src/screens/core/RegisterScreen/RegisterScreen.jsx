@@ -18,12 +18,11 @@ import {
   Business,
 } from '@mui/icons-material';
 import { useDispatch } from 'react-redux';
-import { useRegisterMutation } from '../../../slices/authApiSlice';
+import { useRegisterMutation } from '../../../slices/api/authApiSlice';
 import { setCredentials } from '../../../slices/authSlice';
 import { toast } from 'react-toastify';
 import FormContainer from '../../../components/FormContainer/FormContainer';
 import Loader from '../../../components/Loader/Loader';
-import useStyles from './styles';
 
 const RegisterScreen = () => {
   const [firstName, setFirstName] = useState('');
@@ -43,8 +42,6 @@ const RegisterScreen = () => {
     password &&
     confirmPassword &&
     password === confirmPassword;
-
-  const classes = useStyles();
 
   const navigate = useNavigate();
   const dispatch = useDispatch();
@@ -190,7 +187,6 @@ const RegisterScreen = () => {
               type='password'
               value={confirmPassword}
               onChange={(e) => setConfirmPassword(e.target.value)}
-              // helperText={error}
               InputProps={{
                 startAdornment: (
                   <InputAdornment position='start'>
@@ -207,8 +203,14 @@ const RegisterScreen = () => {
             color='primary'
             fullWidth
             disabled={!isFormValid}
-            className={classes.button}
-            sx={{ mt: 2, mb: 1 }}
+            sx={{
+              borderRadius: '10px !important',
+              padding: '10px !important',
+              margin: '5px 5px !important',
+              width: '100%',
+              mt: 2,
+              mb: 1,
+            }}
           >
             {isLoading ? <Loader /> : 'Register'}
           </Button>

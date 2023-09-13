@@ -2,12 +2,12 @@ import { Card, Grid, Button, Typography, Divider } from '@mui/material';
 import { useSelector, useDispatch } from 'react-redux';
 import { toast } from 'react-toastify';
 import { setRequests, setApproved } from '../../slices/requestSlice';
-import useStyles from './styles';
+
 const RequestCard = ({ request }) => {
   const { userInfo } = useSelector((state) => state.auth);
   const { requests, approved } = useSelector((state) => state.requests);
   const dispatch = useDispatch();
-  const classes = useStyles();
+
   const acceptHandler = async () => {
     try {
       const response = await fetch(
@@ -61,7 +61,15 @@ const RequestCard = ({ request }) => {
   console.log(request);
 
   return (
-    <Card className={classes.card}>
+    <Card
+      sx={{
+        padding: '10px',
+        boxShadow: '0px 14px 80px rgba(34, 35, 58, 0.2) !important',
+        borderRadius: '10px !important',
+        width: '100% !important',
+        // height: '200px',
+      }}
+    >
       <Grid container spacing={2}>
         <Grid item xs={12}>
           <Typography variant='body2'>

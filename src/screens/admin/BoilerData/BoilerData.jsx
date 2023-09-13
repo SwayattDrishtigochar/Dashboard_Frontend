@@ -1,5 +1,4 @@
 import { useEffect, useState } from 'react';
-import AdminHeader from '../AdminHeader/AdminHeader';
 import {
   Box,
   TablePagination,
@@ -8,7 +7,7 @@ import {
   Typography,
 } from '@mui/material';
 import { DataGrid, GridToolbar } from '@mui/x-data-grid';
-import { useGetAllBoilerDataQuery } from '../../../slices/boilerApiSlice';
+import { useGetAllBoilerDataQuery } from '../../../slices/api/boilerApiSlice';
 
 const BoilerData = () => {
   const [boiler, setBoiler] = useState([]);
@@ -97,9 +96,8 @@ const BoilerData = () => {
         width='100%'
         alignItems='center'
         justifyContent='center'
-        sx={{ mt: '70px' }}
+        sx={{ mt: '80px' }}
       >
-        <AdminHeader />
         <Paper
           elevation={3}
           style={{

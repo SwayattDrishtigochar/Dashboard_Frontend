@@ -1,47 +1,55 @@
-import {
-  Container,
-  Grid,
-  Button,
-  Box,
-  Paper,
-  Card,
-  Typography,
-} from "@mui/material";
-import { Link } from "react-router-dom";
-import { useSelector } from "react-redux";
-import ImgUrl from "../../assets/test.jpg";
-import useStyles from "./styles";
-import FormContainer from "../FormContainer/FormContainer";
+import { Button, Box, Typography } from '@mui/material';
+import { Link } from 'react-router-dom';
+import { useSelector } from 'react-redux';
+import FormContainer from '../FormContainer/FormContainer';
 
 const Hero = () => {
   const { userInfo } = useSelector((state) => state.auth);
-  const classes = useStyles();
 
   return (
     <FormContainer>
-      <Box className={classes.hero}>
-        <Typography variant="h3" m={5} textAlign="center">
+      <Box
+        sx={{
+          padding: '10px',
+          width: '100%',
+          display: 'flex',
+          flexDirection: 'column',
+          alignItems: 'center',
+          justifyContent: 'center',
+        }}
+      >
+        <Typography variant='h3' m={5} textAlign='center'>
           Welcome to Dashboard
         </Typography>
 
         {userInfo ? (
-          userInfo.role === "admin" ? (
+          userInfo.role === 'admin' ? (
             <Button
-              variant="contained"
-              color="primary"
+              variant='contained'
+              color='primary'
               component={Link}
               to={`/${userInfo.company}/dashboard`}
-              className={classes.button}
+              sx={{
+                borderRadius: '10px !important',
+                padding: '10px !important',
+                margin: '5px 5px !important',
+                width: '300px',
+              }}
             >
               Dashboard
             </Button>
           ) : (
             <Button
-              variant="contained"
-              color="primary"
+              variant='contained'
+              color='primary'
               component={Link}
               to={`/${userInfo.company}/boiler`}
-              className={classes.button}
+              sx={{
+                borderRadius: '10px !important',
+                padding: '10px !important',
+                margin: '5px 5px !important',
+                width: '300px',
+              }}
             >
               Boiler
             </Button>
@@ -50,19 +58,24 @@ const Hero = () => {
           <>
             <Box
               sx={{
-                width: "100%",
-                display: "flex",
-                flexDirection: { sm: "column", md: "row" },
-                justifyContent: "center",
-                alignItems: "center",
+                width: '100%',
+                display: { sm: 'flex', md: 'row' },
+                flexDirection: { sm: 'column', md: 'row' },
+                justifyContent: 'center',
+                alignItems: 'center',
               }}
             >
               <Button
-                variant="contained"
-                color="primary"
+                variant='contained'
+                color='primary'
                 component={Link}
-                to="/login"
-                className={classes.button}
+                to='/login'
+                sx={{
+                  borderRadius: '10px !important',
+                  padding: '10px !important',
+                  margin: '5px 5px !important',
+                  width: '300px',
+                }}
               >
                 Login
               </Button>
@@ -72,7 +85,12 @@ const Hero = () => {
                 color='primary'
                 component={Link}
                 to='/register'
-                className={classes.button}
+                sx={{
+                  borderRadius: '10px !important',
+                  padding: '10px !important',
+                  margin: '5px 5px !important',
+                  width: '300px',
+                }}
               >
                 Register
               </Button> */}

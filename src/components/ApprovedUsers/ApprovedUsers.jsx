@@ -1,5 +1,5 @@
 import { useEffect } from 'react';
-import { useGetApprovedUsersQuery } from '../../slices/adminApiSlice';
+import { useGetApprovedUsersQuery } from '../../slices/api/adminApiSlice';
 import { useSelector, useDispatch } from 'react-redux';
 import { setApproved } from '../../slices/requestSlice';
 import {

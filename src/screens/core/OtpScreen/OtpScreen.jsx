@@ -1,27 +1,24 @@
 import { useState, useEffect } from 'react';
-import { Link, useNavigate } from 'react-router-dom';
-import { Box, Button, Container, FormControl, Typography } from '@mui/material';
-import { useDispatch, useSelector } from 'react-redux';
+import { useNavigate } from 'react-router-dom';
+import { Box, Button, FormControl, Typography } from '@mui/material';
+import { useSelector } from 'react-redux';
 import FormContainer from '../../../components/FormContainer/FormContainer';
 import {
   useResendOtpMutation,
   useVerifyOtpMutation,
-} from '../../../slices/authApiSlice';
-import { setCredentials } from '../../../slices/authSlice';
+} from '../../../slices/api/authApiSlice';
+
 import { toast } from 'react-toastify';
 import OtpInput from 'react-otp-input';
-import useStyles from './styles';
 
 const OtpScreen = () => {
   const [otp, setOtp] = useState('');
   const [minutes, setMinutes] = useState(1);
   const [seconds, setSeconds] = useState(59);
 
-  const classes = useStyles();
   const navigate = useNavigate();
-  const dispatch = useDispatch();
 
-  const [verifyOtp, { isLoading, error }] = useVerifyOtpMutation();
+  const [verifyOtp, { isLoading }] = useVerifyOtpMutation();
   const [resendOtp] = useResendOtpMutation();
   const { userInfo } = useSelector((state) => state.auth);
 
@@ -89,7 +86,16 @@ const OtpScreen = () => {
         <Typography variant='h4' gutterBottom>
           Verify Email
         </Typography>
-        <form onSubmit={submitHandler} className={classes.form}>
+        <form
+          onSubmit={submitHandler}
+          style={{
+            display: 'flex',
+            flexDirection: 'column',
+            alignItems: 'center',
+            justifyContent: 'center',
+            textAlign: 'center',
+          }}
+        >
           <FormControl fullWidth margin='normal'>
             <Typography variant='body1' gutterBottom>
               Email Sent to
@@ -103,12 +109,18 @@ const OtpScreen = () => {
                 justifyContent: 'center',
                 margin: '10px',
               }}
-              inputStyle={classes.inputStyle}
+              inputStyle={{
+                width: '50px !important',
+                height: '50px',
+                margin: '0 1rem',
+                fontSize: '20px',
+                borderRadius: '4px',
+                border: '1px solid black',
+              }}
               value={otp}
               onChange={setOtp}
               numInputs={6}
               inputType={'number'}
-              // renderSeparator={<span>-</span>}
               renderInput={(props) => <input {...props} />}
             />
           </FormControl>
@@ -117,10 +129,16 @@ const OtpScreen = () => {
             type='submit'
             variant='contained'
             color='primary'
-            sx={{ mt: 3, mb: 2 }}
-            className={classes.button}
+            sx={{
+              mt: 3,
+              mb: 2,
+              borderRadius: '10px !important',
+              padding: '10px !important',
+              margin: '5px 5px !important',
+              width: '75%',
+            }}
           >
-            Continue
+            {isLoading ? 'Loading...' : 'Continue'}
           </Button>
         </form>
 

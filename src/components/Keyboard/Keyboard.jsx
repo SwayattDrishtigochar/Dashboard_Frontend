@@ -1,15 +1,13 @@
-import { useEffect, useRef } from 'react';
+import { useEffect } from 'react';
 import KioskBoard from 'kioskboard';
 
 const Keyboard = ({ inputRef }) => {
-  const keyboardRef = useRef(null);
-
   useEffect(() => {
     if (inputRef.current) {
       KioskBoard?.run(inputRef.current.querySelector('input'), {
         language: 'en',
         theme: 'light',
-        autoScroll: true,
+        // autoScroll: true,
         allowRealKeyboard: true,
         allowMobileKeyboard: true,
         capsLockActive: false,
@@ -53,8 +51,6 @@ const Keyboard = ({ inputRef }) => {
       });
     }
   }, [inputRef]);
-
-  //   return <div ref={keyboardRef} id='KioskBoard-VirtualKeyboard' />;
 };
 
 export default Keyboard;
