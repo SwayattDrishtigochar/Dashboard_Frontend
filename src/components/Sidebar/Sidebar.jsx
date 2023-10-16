@@ -13,6 +13,9 @@ import DashboardIcon from '@mui/icons-material/Dashboard';
 import LocalFireDepartmentIcon from '@mui/icons-material/LocalFireDepartment';
 import { Link } from 'react-router-dom';
 import { useSelector } from 'react-redux';
+import ManageAccountsIcon from '@mui/icons-material/ManageAccounts';
+import EngineeringIcon from '@mui/icons-material/Engineering';
+// import LogoutIcon from '@mui/icons-material/Logout';
 
 const drawerWidth = 240;
 const openedMixin = (theme) => ({
@@ -65,6 +68,28 @@ const DrawerHeader = styled('div')(({ theme }) => ({
 const Sidebar = ({ open, handleDrawerClose }) => {
   const theme = useTheme();
   const { userInfo } = useSelector((state) => state.auth);
+  const drawerItems = [
+    {
+      text: 'Dashboard',
+      icon: <DashboardIcon />,
+      link: `/${userInfo?.company}/dashboard`,
+    },
+    {
+      text: 'Boiler',
+      icon: <LocalFireDepartmentIcon />,
+      link: '/boiler/data',
+    },
+    {
+      text: 'Users',
+      icon: <ManageAccountsIcon />,
+      link: `/company/${userInfo?.company}`,
+    },
+    {
+      text: 'Equipments',
+      icon: <EngineeringIcon />,
+      link: `/company/${userInfo?.company}/equipments`,
+    },
+  ];
   return (
     <Drawer variant='permanent' open={open}>
       <DrawerHeader>
@@ -77,70 +102,42 @@ const Sidebar = ({ open, handleDrawerClose }) => {
         </IconButton>
       </DrawerHeader>
       <Divider />
-      <List>
-        <ListItem disablePadding sx={{ display: 'block' }}>
-          <Link
-            to={`/${userInfo?.company}/dashboard`}
-            style={{
-              textDecorationLine: 'none',
-              color: 'inherit',
-            }}
-          >
-            <ListItemButton
-              sx={{
-                minHeight: 48,
-                justifyContent: open ? 'initial' : 'center',
-                px: 2.5,
+      {drawerItems.map((item, index) => (
+        <List key={index}>
+          <ListItem disablePadding sx={{ display: 'block' }}>
+            <Link
+              to={item.link}
+              style={{
+                textDecorationLine: 'none',
+                color: 'inherit',
               }}
             >
-              <ListItemIcon
+              <ListItemButton
                 sx={{
-                  minWidth: 0,
-                  mr: open ? 3 : 'auto',
-                  justifyContent: 'center',
+                  minHeight: 48,
+                  justifyContent: open ? 'initial' : 'center',
+                  px: 2.5,
                 }}
               >
-                <DashboardIcon />
-              </ListItemIcon>
-              <ListItemText
-                primary={'Dashboard'}
-                sx={{ opacity: open ? 1 : 0 }}
-              />
-            </ListItemButton>
-          </Link>
-        </ListItem>
-      </List>
-      <Divider />
-      <List>
-        <ListItem disablePadding sx={{ display: 'block' }}>
-          <Link
-            to='/boiler/data'
-            style={{
-              textDecorationLine: 'none',
-              color: 'inherit',
-            }}
-          >
-            <ListItemButton
-              sx={{
-                minHeight: 48,
-                justifyContent: open ? 'initial' : 'center',
-                px: 2.5,
-              }}
-            >
-              <ListItemIcon
-                sx={{
-                  minWidth: 0,
-                  mr: open ? 3 : 'auto',
-                  justifyContent: 'center',
-                }}
-              >
-                <LocalFireDepartmentIcon />
-              </ListItemIcon>
-              <ListItemText primary='Boiler' sx={{ opacity: open ? 1 : 0 }} />
-            </ListItemButton>
-          </Link>
-        </ListItem>
-      </List>
+                <ListItemIcon
+                  sx={{
+                    minWidth: 0,
+                    mr: open ? 3 : 'auto',
+                    justifyContent: 'center',
+                  }}
+                >
+                  {item.icon}
+                </ListItemIcon>
+                <ListItemText
+                  primary={item.text}
+                  sx={{ opacity: open ? 1 : 0 }}
+                />
+              </ListItemButton>
+            </Link>
+          </ListItem>
+          <Divider />
+        </List>
+      ))}
     </Drawer>
   );
 };

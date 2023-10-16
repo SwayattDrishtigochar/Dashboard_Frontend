@@ -1,7 +1,7 @@
 import { apiSlice } from './apiSlice';
 const SENSOR_URL = 'api/sensor';
 
-export const sensorAoiSlice = apiSlice.injectEndpoints({
+export const sensorApiSlice = apiSlice.injectEndpoints({
   endpoints: (builder) => ({
     getSensorState: builder.query({
       query: ({ collection }) => ({
@@ -10,7 +10,14 @@ export const sensorAoiSlice = apiSlice.injectEndpoints({
         method: 'GET',
       }),
     }),
+    getSensorData: builder.query({
+      query: ({ collection, limit }) => ({
+        url: `${SENSOR_URL}/?collection=${collection}&limit=${limit}`,
+        credentials: 'include',
+        method: 'GET',
+      }),
+    }),
   }),
 });
 
-export const { useGetSensorStateQuery } = sensorAoiSlice;
+export const { useGetSensorStateQuery, useGetSensorDataQuery } = sensorApiSlice;

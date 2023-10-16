@@ -14,18 +14,13 @@ import { useDispatch, useSelector } from 'react-redux';
 import BoilerModal from '../../components/BoilerModal/BoilerModal';
 import { useGetBoilerDataQuery } from '../../slices/api/boilerApiSlice';
 import { addBoilerData } from '../../slices/boilerSlice';
-// import { useGetSensorStateQuery } from '../../slices/sensorApiSlice';
 import Loader from '../../components/Loader/Loader';
-import Header from '../../components/Header/Header';
 import Clock from '../../components/Clock/Clock';
 import BoilderDataTableRow from '../../components/BoilderDataTableRow/BoilderDataTableRow';
-
 const Boiler = () => {
   const [open, setOpen] = useState(false);
-
   const { boilerData } = useSelector((state) => state.boiler);
-
-  const { data, isFetching, refetch } = useGetBoilerDataQuery(
+  const { data, isFetching } = useGetBoilerDataQuery(
     {},
     {
       refetchOnMountOrArgChange: true,
@@ -33,20 +28,12 @@ const Boiler = () => {
       // pollingInterval: 1000,
     }
   );
-
   const dispatch = useDispatch();
-
   useEffect(() => {
     if (data) {
       dispatch(addBoilerData(data));
     }
-
-    // refetch();
-  }, [data]);
-
-  // const handleOpen = () => {
-  //   setOpen(true);
-  // };
+  }, [data, dispatch]);
 
   const handleClose = () => {
     setOpen(false);
@@ -106,9 +93,12 @@ const Boiler = () => {
                 >
                   Wood (kg)
                 </TableCell>
-                {/* <TableCell colSpan={2} style={{ textAlign: 'center' }}>
+                <TableCell
+                  colSpan={2}
+                  style={{ textAlign: 'center', fontWeight: 'bolder' }}
+                >
                   Water Analysis
-                </TableCell> */}
+                </TableCell>
               </TableRow>
               <TableRow>
                 <TableCell />
@@ -126,10 +116,10 @@ const Boiler = () => {
                 </TableCell>
                 <TableCell />
                 <TableCell />
-                {/* <TableCell style={{ textAlign: 'center' }}>
+                <TableCell style={{ textAlign: 'center' }}>
                   Feed Water
                 </TableCell>
-                <TableCell style={{ textAlign: 'center' }}>Blow Down</TableCell> */}
+                <TableCell style={{ textAlign: 'center' }}>Blow Down</TableCell>
               </TableRow>
             </TableHead>
             <TableBody>
@@ -177,5 +167,4 @@ const Boiler = () => {
     </>
   );
 };
-
 export default Boiler;

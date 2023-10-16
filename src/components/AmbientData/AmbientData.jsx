@@ -41,18 +41,18 @@ const AmbientData = () => {
   };
 
   return (
-    <Box
-      border='1px solid black'
-      borderRadius='20px'
-      p='16px'
-      variant='outlined'
-    >
+    <Box borderRadius='20px' width={'100%'}>
       <Grid container spacing={2} position={'relative'}>
         {isLoading && <Loader />}
         <Grid item xs={12} md={6}>
           <Paper
             elevation={3}
-            sx={{ p: 2, display: 'flex', alignItems: 'center' }}
+            sx={{
+              p: 2,
+              display: 'flex',
+              alignItems: 'center',
+              borderRadius: '10px',
+            }}
           >
             <DeviceThermostatIcon
               sx={{
@@ -73,7 +73,12 @@ const AmbientData = () => {
         <Grid item xs={12} md={6}>
           <Paper
             elevation={3}
-            sx={{ p: 2, display: 'flex', alignItems: 'center' }}
+            sx={{
+              p: 2,
+              display: 'flex',
+              alignItems: 'center',
+              borderRadius: '10px',
+            }}
           >
             <SpeedIcon
               sx={{
@@ -95,7 +100,12 @@ const AmbientData = () => {
         <Grid item xs={12} md={6}>
           <Paper
             elevation={3}
-            sx={{ p: 2, display: 'flex', alignItems: 'center' }}
+            sx={{
+              p: 2,
+              display: 'flex',
+              alignItems: 'center',
+              borderRadius: '10px',
+            }}
           >
             <HeatPumpIcon
               sx={{
@@ -123,7 +133,12 @@ const AmbientData = () => {
         <Grid item xs={12} md={6}>
           <Paper
             elevation={3}
-            sx={{ p: 2, display: 'flex', alignItems: 'center' }}
+            sx={{
+              p: 2,
+              display: 'flex',
+              alignItems: 'center',
+              borderRadius: '10px',
+            }}
           >
             <WaterDropIcon
               sx={{
@@ -143,7 +158,12 @@ const AmbientData = () => {
         <Grid item xs={12} md={6}>
           <Paper
             elevation={3}
-            sx={{ p: 2, display: 'flex', alignItems: 'center' }}
+            sx={{
+              p: 2,
+              display: 'flex',
+              alignItems: 'center',
+              borderRadius: '10px',
+            }}
           >
             <EmojiSymbolsIcon
               sx={{
@@ -157,7 +177,7 @@ const AmbientData = () => {
             <div>
               <Typography variant='h6'>Water Level</Typography>
               <Typography variant='body1'>
-                {`${waterLevel} %` || 'No Data'}
+                {waterLevel ? `${waterLevel} %` : 'No Data'}
               </Typography>
             </div>
           </Paper>
@@ -165,7 +185,12 @@ const AmbientData = () => {
         <Grid item xs={12} md={6}>
           <Paper
             elevation={3}
-            sx={{ p: 2, display: 'flex', alignItems: 'center' }}
+            sx={{
+              p: 2,
+              display: 'flex',
+              alignItems: 'center',
+              borderRadius: '10px',
+            }}
           >
             <GiWoodPile
               style={{
@@ -179,7 +204,7 @@ const AmbientData = () => {
             <div>
               <Typography variant='h6'>Wood Amount</Typography>
               <Typography variant='body1'>
-                {`${woodData?.totalWoodAmount} kg` || 'No Data'}
+                {woodData ? `${woodData?.totalWoodAmount} kg` : 'No Data'}
               </Typography>
             </div>
           </Paper>

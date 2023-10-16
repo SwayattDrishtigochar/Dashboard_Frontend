@@ -39,6 +39,13 @@ export const boilerApiSlice = apiSlice.injectEndpoints({
         method: 'GET',
       }),
     }),
+    getSteamData: builder.query({
+      query: () => ({
+        url: `${BOILER_URL}/steam`,
+        credentials: 'include',
+        method: 'GET',
+      }),
+    }),
   }),
 });
 
@@ -48,4 +55,5 @@ export const {
   useDeleteBoilerDataMutation,
   useGetAllBoilerDataQuery,
   useGetAllWoodByDateQuery,
+  useGetSteamDataQuery,
 } = boilerApiSlice;

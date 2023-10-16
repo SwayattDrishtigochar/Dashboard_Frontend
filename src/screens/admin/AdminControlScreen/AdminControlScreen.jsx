@@ -1,16 +1,27 @@
-import { Box, Grid } from '@mui/material';
-import PendingApproval from '../../../components/PendingApproval/PendingApproval';
-import ApprovedUsers from '../../../components/ApprovedUsers/ApprovedUsers';
+import { Box, Grid, Typography, Paper } from '@mui/material';
+import Requests from '../../../components/Requests/Requests';
+import Employees from '../../../components/Employees/Employees';
 
 const AdminControlScreen = () => {
   return (
-    <Box>
-      <Grid container spacing={3}>
+    <Box width={'100%'} p={'10px'} mt={'70px'}>
+      <Typography
+        gutterBottom
+        component={Paper}
+        elevation={3}
+        sx={{ p: '10px' }}
+        variant='h5'
+        textAlign={'center'}
+        fontWeight={'bold'}
+      >
+        Admin Control Panel
+      </Typography>
+      <Grid container spacing={2}>
         <Grid item xs={12}>
-          <PendingApproval />
+          <Requests />
         </Grid>
         <Grid item xs={12}>
-          <ApprovedUsers />
+          <Employees />
         </Grid>
       </Grid>
     </Box>

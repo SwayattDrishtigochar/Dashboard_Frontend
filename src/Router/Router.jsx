@@ -20,6 +20,8 @@ import PasswordResetScreen from '../screens/core/PasswordResetScreen/PasswordRes
 import ForgotPassword from '../screens/core/ForgotPasswordScreen/ForgotPasswordScreen.jsx';
 import Boiler from '../screens/associate/Boiler.jsx';
 import BoilerData from '../screens/admin/BoilerData/BoilerData.jsx';
+import Equipments from '../screens/admin/Equipments/Equipments.jsx';
+import EquipmentInformation from '../components/EquipmentInformation/EquipmentInformation.jsx';
 
 const Router = () => {
   const router = createBrowserRouter(
@@ -46,6 +48,14 @@ const Router = () => {
         <Route path='' element={<AdminRoute />}>
           <Route path='/company/:companyId' element={<AdminControlScreen />} />
           <Route path='/boiler/data' element={<BoilerData />} />
+          <Route
+            path='/company/:companyId/equipments'
+            element={<Equipments />}
+          />
+          <Route
+            path='/company/:companyId/equipments/:id'
+            element={<EquipmentInformation />}
+          />
         </Route>
       </Route>
     )

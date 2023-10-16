@@ -7,33 +7,25 @@ import {
   RadioGroup,
   FormControlLabel,
   Radio,
+  Checkbox,
 } from '@mui/material';
-// import { useDispatch, useSelector } from 'react-redux';
-// import { addBoilerData } from '../../slices/boilerSlice';
-// import { useSetBoilerDataMutation } from '../../slices/boilerApiSlice';
 import { useGetSensorStateQuery } from '../../slices/api/sensorApiSlice';
-// import { toast } from 'react-toastify';
 import BoilerConfirmDialog from '../BoilerConfirmDialog/BoilerConfirmDialog';
 import Loader from '../Loader/Loader';
 
 const BoilerForm = ({ closeModal }) => {
   // const [time, setTime] = useState();
   const [steamPressure, setSteamPressure] = useState(0);
-  const [mainValveControls, setMainValveControls] = useState('');
+  const [mainValveControls, setMainValveControls] = useState('ON');
   const [feedPump1, setFeedPump1] = useState('');
   const [feedPump2, setFeedPump2] = useState('');
   const [waterLevel, setWaterLevel] = useState(0);
   const [woodInput, setWoodInput] = useState('');
   const [woodAmount, setWoodAmount] = useState(0);
-  // const [feedWater, setFeedWater] = useState('OFF');
-  // const [blowDown, setBlowDown] = useState('OFF');
+  const [feedWater, setFeedWater] = useState('');
+  const [blowDown, setBlowDown] = useState('');
 
   const [openDialog, setOpenDialog] = useState(false);
-
-  // const dispatch = useDispatch();
-  // const { boilerData } = useSelector((state) => state.boiler);
-
-  // const [setBoilerData, { isLoading, error }] = useSetBoilerDataMutation();
 
   const increaseWaterLevel = () => {
     setWaterLevel((prevValue) => Math.min(prevValue + 5, 100));
@@ -74,11 +66,9 @@ const BoilerForm = ({ closeModal }) => {
     setWaterLevel(0);
     setWoodInput('');
     setWoodAmount(0);
+    setFeedWater('');
+    setBlowDown('');
   };
-
-  // const handleClickOpen = () => {
-  //   setOpenDialog(true);
-  // };
 
   const handleClose = () => {
     setOpenDialog(false);
@@ -198,11 +188,43 @@ const BoilerForm = ({ closeModal }) => {
 
       <FormControl fullWidth margin='normal'>
         <Box display='flex' justifyContent='space-between' alignItems='center'>
+          <Box
+            width={'50%'}
+            display={'flex'}
+            flexDirection={'column'}
+            alignItems={'center'}
+          >
+            <Typography variant='subtitle1'>Blow Down</Typography>
+            <Checkbox
+              name='blowDown'
+              checked={blowDown === 'Checked'}
+              onChange={(e) => {
+                setBlowDown(e.target.checked ? 'Checked' : '');
+              }}
+            />
+          </Box>
+          <Box
+            width={'50%'}
+            display={'flex'}
+            flexDirection={'column'}
+            alignItems={'center'}
+          >
+            <Typography variant='subtitle1'>Feed Water</Typography>
+            <Checkbox
+              name='feedWater'
+              checked={feedWater === 'Checked'}
+              onChange={(e) => {
+                setFeedWater(e.target.checked ? 'Checked' : '');
+              }}
+            />
+          </Box>
+        </Box>
+      </FormControl>
+
+      <FormControl fullWidth margin='normal'>
+        <Box display='flex' justifyContent='space-between' alignItems='center'>
           <Typography variant='subtitle1'>Water Level:</Typography>
           <Box display='flex' alignItems='center'>
-            {/* <Typography variant='body1' style={{ marginRight: '8px' }}>
-                    Select Water Level:
-                  </Typography> */}
             <Button variant='outlined' onClick={decreaseWaterLevel}>
               -
             </Button>
@@ -240,10 +262,7 @@ const BoilerForm = ({ closeModal }) => {
           waterLevel === 0 ||
           woodInput === ''
         }
-        onClick={
-          // handleSave
-          () => setOpenDialog(true)
-        }
+        onClick={() => setOpenDialog(true)}
       >
         Save
       </Button>
@@ -260,6 +279,8 @@ const BoilerForm = ({ closeModal }) => {
           feedPump2,
           waterLevel,
           woodAmount,
+          feedWater,
+          blowDown,
         }}
       />
     </>

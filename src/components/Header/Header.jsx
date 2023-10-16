@@ -1,6 +1,6 @@
 import { useState } from 'react';
-import { styled } from '@mui/material/styles';
-import { Menu, MenuItem, Button } from '@mui/material';
+import { styled, useTheme } from '@mui/material/styles';
+import { Menu, MenuItem, Button, Box, Badge } from '@mui/material';
 import MuiAppBar from '@mui/material/AppBar';
 import Toolbar from '@mui/material/Toolbar';
 import Typography from '@mui/material/Typography';
@@ -14,6 +14,8 @@ import { useLogoutMutation } from '../../slices/api/authApiSlice';
 import { logout } from '../../slices/authSlice';
 import Logo from '../../assets/logo.png';
 import Sidebar from '../Sidebar/Sidebar';
+import NotificationsIcon from '@mui/icons-material/Notifications';
+import { useMediaQuery } from '@mui/material';
 
 const drawerWidth = 240;
 
@@ -22,7 +24,7 @@ const AppBar = styled(MuiAppBar, {
 })(({ theme, open }) => ({
   display: 'flex',
   justifyContent: 'center',
-  alignItems: 'space-between',
+
   height: '70px !important',
   zIndex: theme.zIndex.drawer + 1,
   transition: theme.transitions.create(['width', 'margin'], {
@@ -42,6 +44,10 @@ const AppBar = styled(MuiAppBar, {
 const AdminHeader = () => {
   const dispatch = useDispatch();
   const navigate = useNavigate();
+
+  const theme = useTheme();
+
+  const isMobile = useMediaQuery(theme.breakpoints.down('sm'));
 
   const [open, setOpen] = useState(false);
 
@@ -80,64 +86,78 @@ const AdminHeader = () => {
   return (
     <>
       <AppBar position='fixed' open={open}>
-        <Toolbar>
-          {userInfo && userInfo.role === 'admin' ? (
-            <IconButton
-              color='inherit'
-              aria-label='open drawer'
-              onClick={handleDrawerOpen}
-              edge='start'
-              sx={{
-                marginRight: 5,
-                ...(open && { display: 'none' }),
-              }}
-            >
-              <MenuIcon />
-            </IconButton>
-          ) : null}
-          <Link to='/'>
-            <img
-              src={Logo}
-              alt='Logo'
-              style={{
-                marginRight: '10px',
-                width: 28,
-                height: 40,
-                marginLeft: '-20px',
-              }}
-            />
-          </Link>
-          <Typography variant='h6' noWrap component='div'>
-            IMPCOPS
-          </Typography>
-          {userInfo ? (
-            <IconButton
-              aria-controls={menuOpen ? 'menu-appbar' : undefined}
-              aria-haspopup='true'
-              aria-expanded={menuOpen ? 'true' : undefined}
-              color='inherit'
-              onClick={handleMenuOpen}
-              sx={{
-                position: 'absolute',
-                right: 25,
-              }}
-            >
-              <AccountCircle />
-            </IconButton>
-          ) : (
-            <Button
-              color='inherit'
-              component={Link}
-              to='/login'
-              sx={{
-                position: 'absolute',
-                right: 25,
-              }}
-            >
-              <ExitToApp style={{ marginRight: '8px' }} />
-              Sign In
-            </Button>
-          )}
+        <Toolbar
+          sx={{
+            display: 'flex',
+            justifyContent: 'space-between',
+            alignItems: 'center',
+            width: '100%',
+
+            margin: '0 auto',
+            padding: '0 10px',
+          }}
+        >
+          <Box display={'flex'} alignItems={'center'}>
+            {userInfo && userInfo.role === 'admin' ? (
+              <IconButton
+                color='inherit'
+                aria-label='open drawer'
+                onClick={handleDrawerOpen}
+                edge='start'
+                sx={{
+                  marginRight: 5,
+                  ...(open && { display: 'none' }),
+                }}
+              >
+                <MenuIcon />
+              </IconButton>
+            ) : null}
+            <Link to='/'>
+              <img
+                src={Logo}
+                alt='Logo'
+                style={{
+                  marginRight: '10px',
+                  width: 28,
+                  height: 40,
+                  marginLeft: '-20px',
+                }}
+              />
+            </Link>
+            <Typography variant='h6' noWrap component='div'>
+              IMPCOPS
+            </Typography>
+          </Box>
+          <Box>
+            {userInfo ? (
+              <Box>
+                <Badge
+                  badgeContent={4}
+                  color='success'
+                  sx={{
+                    marginRight: '10px',
+                  }}
+                >
+                  <NotificationsIcon />
+                </Badge>
+
+                <IconButton
+                  aria-controls={menuOpen ? 'menu-appbar' : undefined}
+                  aria-haspopup='true'
+                  aria-expanded={menuOpen ? 'true' : undefined}
+                  color='inherit'
+                  onClick={handleMenuOpen}
+                >
+                  <AccountCircle />
+                </IconButton>
+              </Box>
+            ) : (
+              <Button color='inherit' component={Link} to='/login'>
+                <ExitToApp style={{ marginRight: '8px' }} />
+                Sign In
+              </Button>
+            )}
+          </Box>
           <Menu
             anchorEl={anchorEl}
             open={Boolean(anchorEl)}
@@ -154,6 +174,7 @@ const AdminHeader = () => {
           </Menu>
         </Toolbar>
       </AppBar>
+
       {userInfo && userInfo.role === 'admin' ? (
         <Sidebar open={open} handleDrawerClose={handleDrawerClose} />
       ) : null}

@@ -1,4 +1,5 @@
 import { TableRow, TableCell } from '@mui/material';
+import CheckBoxIcon from '@mui/icons-material/CheckBox';
 
 const BoilderDataTableRow = ({ boilerData }) => {
   return (
@@ -30,6 +31,16 @@ const BoilderDataTableRow = ({ boilerData }) => {
             </TableCell>
             <TableCell style={{ textAlign: 'center' }}>
               {data?.woodAmount}
+            </TableCell>
+            <TableCell style={{ textAlign: 'center' }}>
+              {data?.feedWater === 'Checked' ? (
+                <CheckBoxIcon color='success' />
+              ) : (
+                '-'
+              )}
+            </TableCell>
+            <TableCell style={{ textAlign: 'center' }}>
+              {data?.blowDown ? <CheckBoxIcon color='success' /> : '-'}
             </TableCell>
           </TableRow>
         ))

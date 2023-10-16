@@ -43,7 +43,6 @@ const BoilerData = () => {
 
   useEffect(() => {
     if (data) {
-      console.log(data);
       setBoiler(data.data);
       setTotalRecords(data.totalDocuments);
     }
@@ -92,22 +91,33 @@ const BoilerData = () => {
   return (
     <>
       <Box
-        display='flex'
+        // display='flex'
         width='100%'
         alignItems='center'
         justifyContent='center'
-        sx={{ mt: '80px' }}
+        sx={{ mt: '80px', mx: '10px' }}
       >
+        <Typography
+          gutterBottom
+          component={Paper}
+          elevation={3}
+          sx={{ p: '10px' }}
+          variant='h5'
+          textAlign={'center'}
+          fontWeight={'bold'}
+        >
+          Boiler Sheet
+        </Typography>
         <Paper
           elevation={3}
           style={{
-            width: '95%',
+            width: '100%',
             display: 'flex',
             flexDirection: 'column',
             padding: '10px',
           }}
         >
-          <Typography
+          {/* <Typography
             variant='h5'
             align='center'
             style={{
@@ -116,7 +126,7 @@ const BoilerData = () => {
             }}
           >
             Boiler Data
-          </Typography>
+          </Typography> */}
           <DataGrid
             sx={{
               '& .MuiDataGrid-columnHeaderTitleContainer': {
