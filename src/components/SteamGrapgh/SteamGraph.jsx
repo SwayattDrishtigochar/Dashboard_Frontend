@@ -63,11 +63,15 @@ const SteamGraph = () => {
             }}
           >
             <ResponsiveContainer width={'100%'} height={250}>
-              <LineChart data={data}>
+              <LineChart
+                data={data}
+                style={{
+                  marginLeft: '-20px',
+                }}
+              >
                 <XAxis dataKey='time' />
                 <YAxis />
                 <Tooltip />
-
                 <CartesianGrid stroke='#eee' strokeDasharray='5 5' />
                 <Line
                   type='monotone'

@@ -10,8 +10,14 @@ const DashboardScreen = () => {
   // const temperatureData = getTemperatureData();
 
   return (
-    <Box sx={{ mt: '80px', width: '100%', px: '10px' }}>
+    <Box
+      display={'flex'}
+      alignItems={'center'}
+      flexDirection={'column'}
+      sx={{ mt: '80px', width: '100%', px: '10px' }}
+    >
       <Typography
+        width={'100%'}
         gutterBottom
         component={Paper}
         elevation={3}
@@ -33,10 +39,10 @@ const DashboardScreen = () => {
         <Grid item xl={6}>
           <AmbientData />
         </Grid>
-        <Grid item xl={3}>
+        <Grid item xl={3} sm={12} width={'100%'}>
           <BoilerStatus />
         </Grid>
-        <Grid item xl={3}>
+        <Grid item xl={3} width={'100%'}>
           <Equipments
             equipments={['Equipment 1', 'Equipment 2', 'Equipment 3']}
           />

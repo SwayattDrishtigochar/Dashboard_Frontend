@@ -16,8 +16,12 @@ const EquipmentInformation = () => {
         mt: '80px',
         mx: '10px',
       }}
+      display={'flex'}
+      flexDirection={'column'}
+      alignItems={'center'}
     >
       <Typography
+        width={'100%'}
         component={Paper}
         elevation={3}
         sx={{ p: '10px' }}
@@ -48,7 +52,7 @@ const EquipmentInformation = () => {
               src={Motor}
               alt='Equipment'
               style={{
-                width: '70%',
+                width: '100%',
                 boxShadow: '0px 0px 10px 0px rgba(0,0,0,0.75)',
                 borderRadius: '10px',
               }}

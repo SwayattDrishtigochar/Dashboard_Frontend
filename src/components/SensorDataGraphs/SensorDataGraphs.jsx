@@ -8,6 +8,7 @@ import {
   CartesianGrid,
   Tooltip,
   Legend,
+  ResponsiveContainer,
 } from 'recharts';
 import { Box, Grid, Paper, Typography } from '@mui/material';
 import Loader from '../Loader/Loader';
@@ -40,16 +41,18 @@ const SensorDataGraphs = ({ data_id }) => {
             Vibration
           </Typography>
           <Paper sx={{ border: '1px solid black' }}>
-            <LineChart width={500} height={300} data={data?.documents}>
-              <XAxis dataKey='timestamp' />
-              <YAxis />
-              <Tooltip />
-              <Legend />
-              <CartesianGrid stroke='#eee' strokeDasharray='5 5' />
-              <Line type='monotone' dataKey='X_accel' stroke='#8884d8' />
-              <Line type='monotone' dataKey='Y_accel' stroke='#82ca9d' />
-              <Line type='monotone' dataKey='Z_accel' stroke='#82ca9d' />
-            </LineChart>
+            <ResponsiveContainer width='100%' height={300}>
+              <LineChart data={data?.documents} style={{ marginLeft: '-20px' }}>
+                <XAxis dataKey='timestamp' />
+                <YAxis />
+                <Tooltip />
+                <Legend />
+                <CartesianGrid stroke='#eee' strokeDasharray='5 5' />
+                <Line type='monotone' dataKey='X_accel' stroke='#8884d8' />
+                <Line type='monotone' dataKey='Y_accel' stroke='#82ca9d' />
+                <Line type='monotone' dataKey='Z_accel' stroke='#82ca9d' />
+              </LineChart>
+            </ResponsiveContainer>
           </Paper>
         </Grid>
         <Grid
@@ -67,15 +70,17 @@ const SensorDataGraphs = ({ data_id }) => {
             Temperature
           </Typography>
           <Paper sx={{ border: '1px solid black' }}>
-            <LineChart width={500} height={300} data={data?.documents}>
-              <XAxis dataKey='timestamp' />
-              <YAxis />
-              <Tooltip />
-              <Legend />
+            <ResponsiveContainer width='100%' height={300}>
+              <LineChart data={data?.documents} style={{ marginLeft: '-20px' }}>
+                <XAxis dataKey='timestamp' />
+                <YAxis />
+                <Tooltip />
+                <Legend />
 
-              <CartesianGrid stroke='#eee' strokeDasharray='5 5' />
-              <Line type='monotone' dataKey='Temperature' stroke='#8884d8' />
-            </LineChart>
+                <CartesianGrid stroke='#eee' strokeDasharray='5 5' />
+                <Line type='monotone' dataKey='Temperature' stroke='#8884d8' />
+              </LineChart>
+            </ResponsiveContainer>
           </Paper>
         </Grid>
         <Grid
@@ -93,14 +98,16 @@ const SensorDataGraphs = ({ data_id }) => {
             Pressure
           </Typography>
           <Paper sx={{ border: '1px solid black' }}>
-            <LineChart width={500} height={300} data={data?.documents}>
-              <XAxis dataKey='timestamp' />
-              <YAxis />
-              <Tooltip />
-              <Legend />
-              <CartesianGrid stroke='#eee' strokeDasharray='5 5' />
-              <Line type='monotone' dataKey='Pressure' stroke='#8884d8' />
-            </LineChart>
+            <ResponsiveContainer width='100%' height={300}>
+              <LineChart data={data?.documents}>
+                <XAxis dataKey='timestamp' />
+                <YAxis />
+                <Tooltip />
+                <Legend />
+                <CartesianGrid stroke='#eee' strokeDasharray='5 5' />
+                <Line type='monotone' dataKey='Pressure' stroke='#8884d8' />
+              </LineChart>
+            </ResponsiveContainer>
           </Paper>
         </Grid>
       </Grid>

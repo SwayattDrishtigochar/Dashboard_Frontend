@@ -92,7 +92,6 @@ const AdminHeader = () => {
             justifyContent: 'space-between',
             alignItems: 'center',
             width: '100%',
-
             margin: '0 auto',
             padding: '0 10px',
           }}
@@ -107,6 +106,7 @@ const AdminHeader = () => {
                 sx={{
                   marginRight: 5,
                   ...(open && { display: 'none' }),
+                  display: isMobile ? 'none' : 'block',
                 }}
               >
                 <MenuIcon />
@@ -120,7 +120,7 @@ const AdminHeader = () => {
                   marginRight: '10px',
                   width: 28,
                   height: 40,
-                  marginLeft: '-20px',
+                  marginLeft: '0px',
                 }}
               />
             </Link>
@@ -167,7 +167,7 @@ const AdminHeader = () => {
             transformOrigin={{ horizontal: 'right', vertical: 'top' }}
             anchorOrigin={{ horizontal: 'right', vertical: 'bottom' }}
           >
-            <MenuItem onClick={handleLogout}>
+            <MenuItem onClick={handleLogout} sx={{}}>
               <ExitToApp style={{ marginRight: '8px' }} />
               Logout
             </MenuItem>
