@@ -46,6 +46,13 @@ export const boilerApiSlice = apiSlice.injectEndpoints({
         method: 'GET',
       }),
     }),
+    getWaterLevelData: builder.query({
+      query: () => ({
+        url: `${BOILER_URL}/water`,
+        credentials: 'include',
+        method: 'GET',
+      }),
+    }),
   }),
 });
 
@@ -56,4 +63,5 @@ export const {
   useGetAllBoilerDataQuery,
   useGetAllWoodByDateQuery,
   useGetSteamDataQuery,
+  useGetWaterLevelDataQuery,
 } = boilerApiSlice;

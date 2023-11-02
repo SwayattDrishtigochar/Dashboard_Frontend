@@ -33,16 +33,27 @@ const AmbientData = () => {
   const lastDocument = isFetching
     ? null
     : boilerData?.[boilerData?.length === 1 ? 0 : boilerData?.length - 1];
-  const { steamPressure, feedPump1, feedPump2, waterLevel } = lastDocument || {
-    steamPressure: 0,
-    feedPump1: '',
-    feedPump2: '',
-    waterLevel: '',
-  };
+  const { steamPressure, feedPump1, feedPump2, waterLevel, timestamp } =
+    lastDocument || {
+      steamPressure: 0,
+      feedPump1: '',
+      feedPump2: '',
+      waterLevel: 0,
+    };
 
   return (
     <Box borderRadius='20px' width={'100%'}>
-      <Grid container spacing={2} position={'relative'}>
+      <Grid
+        container
+        justifyContent={'stretch'}
+        spacing={2}
+        position={'relative'}
+      >
+        <Grid item sm={12} textAlign={'center'}>
+          <Typography component={Paper} variant='h6'>
+            {timestamp}
+          </Typography>
+        </Grid>
         {isLoading && <Loader />}
         <Grid item xs={12} md={6}>
           <Paper
@@ -61,9 +72,6 @@ const AmbientData = () => {
                 color: 'orange',
               }}
             />
-
-            {/* Use the Thermometer icon */}
-
             <div>
               <Typography variant='h6'>Ambient Temperature</Typography>
               <Typography variant='body1'>Value 1</Typography>
@@ -88,12 +96,9 @@ const AmbientData = () => {
               }}
             />
 
-            {/* Use the Thermometer icon */}
             <div>
               <Typography variant='h6'>Steam Pressure</Typography>
-              <Typography variant='body1'>
-                {steamPressure || 'NO DATA'}
-              </Typography>
+              <Typography variant='body1'>{steamPressure}</Typography>
             </div>
           </Paper>
         </Grid>
@@ -114,8 +119,6 @@ const AmbientData = () => {
                 color: '#326e78',
               }}
             />
-
-            {/* Use the Thermometer icon */}
             <div>
               <Typography variant='h6'>Feed Pump</Typography>
               <Typography variant='body1'>
@@ -148,7 +151,6 @@ const AmbientData = () => {
               }}
             />
 
-            {/* Use the Thermometer icon */}
             <div>
               <Typography variant='h6'>Water Analysis</Typography>
               <Typography variant='body1'>No Data</Typography>
@@ -173,7 +175,6 @@ const AmbientData = () => {
               }}
             />
 
-            {/* Use the Thermometer icon */}
             <div>
               <Typography variant='h6'>Water Level</Typography>
               <Typography variant='body1'>
@@ -200,7 +201,6 @@ const AmbientData = () => {
               }}
             />
 
-            {/* Use the Thermometer icon */}
             <div>
               <Typography variant='h6'>Wood Amount</Typography>
               <Typography variant='body1'>

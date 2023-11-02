@@ -117,16 +117,6 @@ const BoilerData = () => {
             padding: '10px',
           }}
         >
-          {/* <Typography
-            variant='h5'
-            align='center'
-            style={{
-              marginBottom: '10px',
-              fontWeight: 'bold',
-            }}
-          >
-            Boiler Data
-          </Typography> */}
           <DataGrid
             sx={{
               '& .MuiDataGrid-columnHeaderTitleContainer': {
