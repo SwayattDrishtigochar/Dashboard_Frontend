@@ -13,7 +13,7 @@ import {
 } from 'recharts';
 
 const DataBlock = () => {
-  const { data, isLoading, isFetching } = useGetWaterLevelDataQuery(
+  const { data, isFetching } = useGetWaterLevelDataQuery(
     {},
     {
       refetchOnMountOrArgChange: true,

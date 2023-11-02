@@ -1,15 +1,14 @@
 import { Box, Grid, Paper, Typography } from '@mui/material';
-// import { CheckCircle, RadioButtonUnchecked } from '@material-ui/icons';
-
 import AmbientData from '../../../components/AmbientData/AmbientData';
 import SteamGraph from '../../../components/SteamGrapgh/SteamGraph';
 import BoilerStatus from '../../../components/BoilerStatus/BoilerStatus';
 import DataBlock from '../../../components/WaterLevel/WaterLevel';
 
 import WaterDropIcon from '@mui/icons-material/WaterDrop';
-import EmojiSymbolsIcon from '@mui/icons-material/EmojiSymbols';
-import { GiWoodPile } from 'react-icons/gi';
-import { CheckCircle, RadioButtonUnchecked } from '@mui/icons-material';
+import HeatPumpIcon from '@mui/icons-material/HeatPump';
+
+import { Link } from 'react-router-dom';
+import { useSelector } from 'react-redux';
 
 const DashboardScreen = () => {
   return (
@@ -51,22 +50,50 @@ const DashboardScreen = () => {
               {
                 name: 'Feed Pump 1',
                 status: true,
-                icon: <WaterDropIcon />,
+                icon: (
+                  <WaterDropIcon
+                    sx={{
+                      color: '#7ba2d6',
+                    }}
+                  />
+                ),
+                id: '652cea737ae0e693f8760c50',
               },
               {
                 name: 'Feed Pump 2',
                 status: false,
-                icon: <WaterDropIcon />,
+                icon: (
+                  <WaterDropIcon
+                    sx={{
+                      color: '#7ba2d6',
+                    }}
+                  />
+                ),
+                id: '652cea7c7ae0e693f8760c52',
               },
               {
                 name: 'IN Motor',
                 status: true,
-                icon: <EmojiSymbolsIcon />,
+                icon: (
+                  <HeatPumpIcon
+                    sx={{
+                      color: '#ffa500',
+                    }}
+                  />
+                ),
+                id: '652cea257ae0e693f8760c4c',
               },
               {
                 name: 'FD Motor',
                 status: true,
-                icon: <GiWoodPile />,
+                icon: (
+                  <HeatPumpIcon
+                    sx={{
+                      color: '#ffa500',
+                    }}
+                  />
+                ),
+                id: '652cea427ae0e693f8760c4e',
               },
             ]}
           />
@@ -77,6 +104,8 @@ const DashboardScreen = () => {
 };
 
 const Equipments = ({ equipments }) => {
+  const { userInfo } = useSelector((state) => state.auth);
+
   return (
     <Grid container spacing={1}>
       <Grid item xs={12}>
@@ -93,24 +122,25 @@ const Equipments = ({ equipments }) => {
       </Grid>
 
       {equipments.map((equipment, index) => (
-        <Grid item xs={12} sm={6} md={4} lg={6} key={index}>
+        <Grid
+          item
+          xs={12}
+          sm={6}
+          md={4}
+          lg={6}
+          key={index}
+          component={Link}
+          to={`/company/${userInfo.company}/equipments/${equipment.id}`}
+          sx={{
+            textDecoration: 'none',
+            color: 'inherit',
+          }}
+        >
           <Paper elevation={3} style={{ borderRadius: '20px' }}>
-            <Box p={2}>
-              <Box display='flex' alignItems='center' mb={2}>
+            <Box p={2} display={'flex'} alignItems={'center'}>
+              <Box display='flex' alignItems='center' p={2}>
                 <Box mr={1}>{equipment.icon}</Box>
                 <Typography variant='h6'>{equipment.name}</Typography>
-              </Box>
-              <Box display='flex' alignItems='center'>
-                <Box mr={1}>
-                  {equipment.status ? (
-                    <CheckCircle style={{ color: 'green' }} />
-                  ) : (
-                    <RadioButtonUnchecked style={{ color: 'red' }} />
-                  )}
-                </Box>
-                <Typography variant='body1'>
-                  {equipment.status ? 'On' : 'Off'}
-                </Typography>
               </Box>
             </Box>
           </Paper>
