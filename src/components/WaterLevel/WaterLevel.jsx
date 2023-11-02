@@ -26,7 +26,7 @@ const DataBlock = () => {
     value: item.waterLevel,
   }));
 
-  const lastwaterData = waterData?.[waterData.length - 1].value;
+  const lastwaterData = waterData?.[waterData.length - 1]?.value;
 
   return (
     <Box sx={{ background: '#fefefe', mt: '10px' }}>
