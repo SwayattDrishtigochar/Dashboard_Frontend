@@ -9,7 +9,7 @@ export default defineConfig({
     host: true,
     proxy: {
       '/api': {
-        target: 'http://localhost:8000',
+        target: 'https://dashboard-ndxx.onrender.com',
         changeOrigin: true,
         headers: {
           Connection: 'keep-alive',
