@@ -39,7 +39,8 @@ const WaterGauge = ({ value }) => {
       flexDirection={'column'}
       alignItems={'center'}
       justifyContent={'center'}
-      padding={'10px 0 0 0 '}
+      padding={'10px '}
+      height={250}
     >
       <LiquidFillGauge
         // style={{ margin: '0 auto' }}
@@ -92,12 +93,12 @@ const WaterGauge = ({ value }) => {
           fontFamily: 'Arial',
         }}
       />
-      <div
+      {/* <div
         style={{
           margin: '20px auto',
           width: 120,
         }}
-      ></div>
+      ></div> */}
     </Box>
   );
 };

@@ -1,15 +1,29 @@
 import { useEffect, useState } from 'react';
+import { useTheme } from '@mui/material/styles';
 import { useGetApprovedUsersQuery } from '../../slices/api/adminApiSlice';
 import { useSelector, useDispatch } from 'react-redux';
 import { setApproved } from '../../slices/requestSlice';
 import { DataGrid } from '@mui/x-data-grid';
-import { Box, Typography } from '@mui/material';
+import {
+  Box,
+  Typography,
+  Card,
+  CardContent,
+  Grid,
+  IconButton,
+  Skeleton,
+} from '@mui/material';
 import LinearProgress from '@mui/material/LinearProgress';
+
+import { useMediaQuery } from '@mui/material';
+import EmployeeCard from '../EmployeeCard/EmployeeCard';
 
 const Employees = () => {
   const { userInfo } = useSelector((state) => state.auth);
   const [rows, setRows] = useState([]);
+  const theme = useTheme();
 
+  const isMobile = useMediaQuery(theme.breakpoints.down('sm'));
   const { data: employees, isFetching } = useGetApprovedUsersQuery(
     userInfo.company,
     {
@@ -62,7 +76,7 @@ const Employees = () => {
   return (
     <>
       <Box
-        sx={{ p: 2, background: '#fefefe' }}
+        sx={{ pt: 2, background: '#fefefe' }}
         // border='1px solid black'
         borderRadius='20px'
       >
@@ -76,6 +90,7 @@ const Employees = () => {
             '& .MuiDataGrid-columnHeaderTitleContainer': {
               justifyContent: 'center',
             },
+            display: isMobile ? 'none' : 'block',
           }}
           rows={rows}
           hideFooter
@@ -88,6 +103,17 @@ const Employees = () => {
           }}
           // slots={{ toolbar: GridToolbar }}
         />
+        <Grid
+          container
+          spacing={1}
+          sx={{ display: isMobile ? 'block' : 'none' }}
+        >
+          {employees?.map((employee) => (
+            <Grid item key={employee._id} xs={12} sm={6} md={4} lg={2}>
+              <EmployeeCard employee={employee} isFetching={isFetching} />
+            </Grid>
+          ))}
+        </Grid>
       </Box>
     </>
   );

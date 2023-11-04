@@ -3,10 +3,8 @@ import AmbientData from '../../../components/AmbientData/AmbientData';
 import SteamGraph from '../../../components/SteamGrapgh/SteamGraph';
 import BoilerStatus from '../../../components/BoilerStatus/BoilerStatus';
 import DataBlock from '../../../components/WaterLevel/WaterLevel';
-
 import WaterDropIcon from '@mui/icons-material/WaterDrop';
 import HeatPumpIcon from '@mui/icons-material/HeatPump';
-
 import { Link } from 'react-router-dom';
 import { useSelector } from 'react-redux';
 
@@ -37,7 +35,6 @@ const DashboardScreen = () => {
         <Grid item xs={12} sm={12} md={6} xl={6}>
           <DataBlock />
         </Grid>
-
         <Grid item xl={6}>
           <AmbientData />
         </Grid>

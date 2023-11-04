@@ -131,6 +131,9 @@ const BoilerData = () => {
             disableSelectionOnClick
             getRowId={getRowId}
             slots={{ toolbar: GridToolbar }}
+            slotProps={{
+              toolbar: { printOptions: { disableToolbarButton: true } },
+            }}
           />
           <Box
             display='flex'

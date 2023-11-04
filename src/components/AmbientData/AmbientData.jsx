@@ -1,4 +1,12 @@
-import { Box, Grid, Paper, Typography } from '@mui/material';
+import {
+  Box,
+  Grid,
+  Paper,
+  Table,
+  TableBody,
+  TableCell,
+  Typography,
+} from '@mui/material';
 import {
   useGetBoilerDataQuery,
   useGetAllWoodByDateQuery,
@@ -10,6 +18,7 @@ import HeatPumpIcon from '@mui/icons-material/HeatPump';
 import WaterDropIcon from '@mui/icons-material/WaterDrop';
 import EmojiSymbolsIcon from '@mui/icons-material/EmojiSymbols';
 import { GiWoodPile } from 'react-icons/gi';
+import CheckCircleIcon from '@mui/icons-material/CheckCircle';
 
 const AmbientData = () => {
   const {
@@ -33,29 +42,44 @@ const AmbientData = () => {
   const lastDocument = isFetching
     ? null
     : boilerData?.[boilerData?.length === 1 ? 0 : boilerData?.length - 1];
-  const { steamPressure, feedPump1, feedPump2, waterLevel, timestamp } =
-    lastDocument || {
-      steamPressure: 0,
-      feedPump1: '',
-      feedPump2: '',
-      waterLevel: 0,
-    };
+  const {
+    steamPressure,
+    feedPump1,
+    feedPump2,
+    waterLevel,
+    time,
+    feedWater,
+    blowDown,
+  } = lastDocument || {
+    steamPressure: 0,
+    feedPump1: '',
+    feedPump2: '',
+    waterLevel: 0,
+    time: '',
+  };
 
   return (
-    <Box borderRadius='20px' width={'100%'}>
+    <Box width={'100%'}>
       <Grid
         container
         justifyContent={'stretch'}
         spacing={2}
         position={'relative'}
       >
-        <Grid item sm={12} textAlign={'center'}>
-          <Typography component={Paper} variant='h6'>
-            {timestamp}
+        <Grid item xs={12}>
+          <Typography
+            component={Paper}
+            elevation={3}
+            sx={{ p: '10px' }}
+            variant='h6'
+            textAlign={'center'}
+            fontWeight={'bold'}
+          >
+            Boiler Sheet
           </Typography>
         </Grid>
         {isLoading && <Loader />}
-        <Grid item xs={12} md={6}>
+        {/* <Grid item xs={12} md={6}>
           <Paper
             elevation={3}
             sx={{
@@ -77,7 +101,7 @@ const AmbientData = () => {
               <Typography variant='body1'>Value 1</Typography>
             </div>
           </Paper>
-        </Grid>
+        </Grid> */}
         <Grid item xs={12} md={6}>
           <Paper
             elevation={3}
@@ -128,35 +152,12 @@ const AmbientData = () => {
                   ? 'Pump 1 is ON'
                   : feedPump2 === 'ON'
                   ? 'Pump 2 is ON'
-                  : 'No Data'}
+                  : 'Both pumps are OFF'}
               </Typography>
             </div>
           </Paper>
         </Grid>
-        <Grid item xs={12} md={6}>
-          <Paper
-            elevation={3}
-            sx={{
-              p: 2,
-              display: 'flex',
-              alignItems: 'center',
-              borderRadius: '10px',
-            }}
-          >
-            <WaterDropIcon
-              sx={{
-                fontSize: '3rem',
-                marginRight: '1rem',
-                color: '#7ba2d7',
-              }}
-            />
 
-            <div>
-              <Typography variant='h6'>Water Analysis</Typography>
-              <Typography variant='body1'>No Data</Typography>
-            </div>
-          </Paper>
-        </Grid>
         <Grid item xs={12} md={6}>
           <Paper
             elevation={3}
@@ -208,6 +209,30 @@ const AmbientData = () => {
               </Typography>
             </div>
           </Paper>
+        </Grid>
+        <Grid item xs={12} md={12}>
+          <Typography
+            component={Paper}
+            textAlign={'center'}
+            elevation={3}
+            sx={{
+              p: 2,
+              display: 'flex',
+              alignItems: 'center',
+              justifyContent: 'center',
+              borderRadius: '10px',
+            }}
+          >
+            Last Entry:{' '}
+            {time &&
+              new Date(time).toLocaleTimeString('en-US', {
+                timeZone: 'Asia/Kolkata',
+                hour12: true,
+                hour: 'numeric',
+                minute: 'numeric',
+                second: 'numeric',
+              })}
+          </Typography>
         </Grid>
       </Grid>
     </Box>

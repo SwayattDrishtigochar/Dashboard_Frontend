@@ -36,7 +36,7 @@ const Requests = () => {
   });
 
   return (
-    <Box sx={{ p: 2, background: '#fefefe' }} borderRadius='10px'>
+    <Box sx={{ pt: 2, background: '#fefefe' }} borderRadius='10px'>
       <Grid container alignItems='center' spacing={2}>
         <Grid item xs={12} sm={12} lg={12} p='0'>
           <Typography variant='h6'>Requests</Typography>
@@ -70,10 +70,6 @@ const Requests = () => {
             isLoading={isFetching}
           />
         ))}
-
-        {/* <RequestCard />
-        <RequestCard />
-        <RequestCard /> */}
       </Grid>
     </Box>
   );

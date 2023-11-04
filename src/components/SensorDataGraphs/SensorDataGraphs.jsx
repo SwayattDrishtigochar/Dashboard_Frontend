@@ -1,4 +1,4 @@
-import React from 'react';
+import { useState, useEffect } from 'react';
 import { useGetSensorDataQuery } from '../../slices/api/sensorApiSlice';
 import {
   LineChart,
@@ -10,19 +10,29 @@ import {
   Legend,
   ResponsiveContainer,
 } from 'recharts';
-import { Box, Grid, Paper, Typography } from '@mui/material';
-import Loader from '../Loader/Loader';
+import { Grid, Paper, Typography } from '@mui/material';
 
 const SensorDataGraphs = ({ data_id }) => {
-  const { data, error, isLoading } = useGetSensorDataQuery(
+  const [sensorData, setSensorData] = useState([]);
+  const { data } = useGetSensorDataQuery(
     {
       collection: data_id,
       limit: 20,
     },
-    {}
+    {
+      pollingInterval: 10000,
+      refetchOnMountOrArgChange: true,
+      refetchOnReconnect: true,
+      refetchOnFocus: true,
+    }
   );
-  console.log(data);
-  isLoading && <Loader />;
+
+  useEffect(() => {
+    if (data) {
+      setSensorData([...data.documents].reverse());
+    }
+  }, [data]);
+
   return (
     <>
       <Grid container spacing={2} sx={{ mt: '10px', width: '100%' }}>
@@ -42,15 +52,30 @@ const SensorDataGraphs = ({ data_id }) => {
           </Typography>
           <Paper sx={{ border: '1px solid black' }}>
             <ResponsiveContainer width='100%' height={300}>
-              <LineChart data={data?.documents} style={{ marginLeft: '-20px' }}>
+              <LineChart data={sensorData} style={{ marginLeft: '-20px' }}>
                 <XAxis dataKey='timestamp' />
                 <YAxis />
                 <Tooltip />
                 <Legend />
                 <CartesianGrid stroke='#eee' strokeDasharray='5 5' />
-                <Line type='monotone' dataKey='X_accel' stroke='#8884d8' />
-                <Line type='monotone' dataKey='Y_accel' stroke='#82ca9d' />
-                <Line type='monotone' dataKey='Z_accel' stroke='#82ca9d' />
+                <Line
+                  type='monotone'
+                  dataKey='X_accel'
+                  stroke='#ff8a8a'
+                  dot={false}
+                />
+                <Line
+                  type='monotone'
+                  dataKey='Y_accel'
+                  stroke='#3fa7ff'
+                  dot={false}
+                />
+                <Line
+                  type='monotone'
+                  dataKey='Z_accel'
+                  stroke='#fff111'
+                  dot={false}
+                />
               </LineChart>
             </ResponsiveContainer>
           </Paper>
@@ -71,14 +96,19 @@ const SensorDataGraphs = ({ data_id }) => {
           </Typography>
           <Paper sx={{ border: '1px solid black' }}>
             <ResponsiveContainer width='100%' height={300}>
-              <LineChart data={data?.documents} style={{ marginLeft: '-20px' }}>
+              <LineChart data={sensorData} style={{ marginLeft: '-20px' }}>
                 <XAxis dataKey='timestamp' />
                 <YAxis />
                 <Tooltip />
                 <Legend />
 
                 <CartesianGrid stroke='#eee' strokeDasharray='5 5' />
-                <Line type='monotone' dataKey='Temperature' stroke='#8884d8' />
+                <Line
+                  type='monotone'
+                  dataKey='Temperature'
+                  stroke='#ff9751'
+                  dot={false}
+                />
               </LineChart>
             </ResponsiveContainer>
           </Paper>
@@ -99,13 +129,18 @@ const SensorDataGraphs = ({ data_id }) => {
           </Typography>
           <Paper sx={{ border: '1px solid black' }}>
             <ResponsiveContainer width='100%' height={300}>
-              <LineChart data={data?.documents}>
+              <LineChart data={sensorData}>
                 <XAxis dataKey='timestamp' />
                 <YAxis />
                 <Tooltip />
                 <Legend />
                 <CartesianGrid stroke='#eee' strokeDasharray='5 5' />
-                <Line type='monotone' dataKey='Pressure' stroke='#8884d8' />
+                <Line
+                  type='monotone'
+                  dataKey='Pressure'
+                  stroke='#8884d8'
+                  dot={false}
+                />
               </LineChart>
             </ResponsiveContainer>
           </Paper>

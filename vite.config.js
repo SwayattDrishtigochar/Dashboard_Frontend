@@ -9,8 +9,17 @@ export default defineConfig({
     host: true,
     proxy: {
       '/api': {
-        target: 'https://dashboard-ndxx.onrender.com',
+        target: 'http://localhost:8000',
         changeOrigin: true,
+        headers: {
+          Connection: 'keep-alive',
+          'Access-Control-Allow-Origin': '*',
+          'Access-Control-Allow-Methods': 'GET, POST, PUT, DELETE, OPTIONS',
+          'Access-Control-Allow-Headers':
+            'Origin, X-Requested-With, Content-Type, Accept',
+
+          // 'Access-Control-Allow-Headers': 'Content-Type, Authorization',
+        },
       },
     },
   },

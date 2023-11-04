@@ -46,10 +46,12 @@ const RequestCard = ({ request, isLoading }) => {
                 {request.fname} {request.lname}
               </Typography>
               <Typography variant='body2' color='textSecondary' gutterBottom>
-                Email: {request.email}
+                Email:
+                {request.email}
               </Typography>
               <Typography variant='body2' color='textSecondary' gutterBottom>
-                Phone: {request.phone}
+                Phone:
+                {request.phone}
               </Typography>
             </>
           )}

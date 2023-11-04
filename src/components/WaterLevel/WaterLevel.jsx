@@ -31,6 +31,18 @@ const DataBlock = () => {
   return (
     <Box sx={{ background: '#fefefe', mt: '10px' }}>
       <Grid container spacing={1}>
+        <Grid item xs={12}>
+          <Typography
+            component={Paper}
+            elevation={3}
+            sx={{ p: '10px' }}
+            variant='h6'
+            textAlign={'center'}
+            fontWeight={'bold'}
+          >
+            Water Level
+          </Typography>
+        </Grid>
         <Grid item xs={12} sm={12} xl={6}>
           <Paper
             elevation={3}
@@ -47,10 +59,8 @@ const DataBlock = () => {
                 <CircularProgress />
               </Box>
             ) : (
-              <WaterGauge value={lastwaterData} />
+              <WaterGauge value={lastwaterData || 0} />
             )}
-
-            <Typography fontWeight={'bold'}>Water Level</Typography>
           </Paper>
         </Grid>
         <Grid item xl={6} xs={12}>
@@ -65,7 +75,7 @@ const DataBlock = () => {
           >
             <ResponsiveContainer width={'100%'} height={250}>
               <LineChart
-                data={data}
+                data={data?.length > 0 ? data : [{ time: 0, waterLevel: 0 }]}
                 style={{
                   marginLeft: '-20px',
                 }}
@@ -77,8 +87,6 @@ const DataBlock = () => {
                 <Line type='monotone' dataKey='waterLevel' stroke='#82ca9d' />
               </LineChart>
             </ResponsiveContainer>
-
-            <Typography fontWeight={'bold'}>Water Level</Typography>
           </Paper>
         </Grid>
       </Grid>
