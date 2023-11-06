@@ -33,6 +33,8 @@ const SensorDataGraphs = ({ data_id }) => {
     }
   }, [data]);
 
+  console.log(sensorData);
+
   return (
     <>
       <Grid container spacing={2} sx={{ mt: '10px', width: '100%' }}>
