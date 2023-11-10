@@ -52,8 +52,7 @@ const BoilerStatus = () => {
           <Grid item xs={12}>
             <Box component={Paper} p={'10px 15px'}>
               <Typography variant={'body1'} fontSize={'18px'}>
-                Running Time:{' '}
-                {isLoading ? 'Loading' : boilerState ? 'ON' : 'OFF'}
+                Running Time: {isLoading ? 'Loading' : '2.5 hours'}
               </Typography>
             </Box>
           </Grid>
@@ -68,7 +67,7 @@ const BoilerStatus = () => {
           <Grid item xs={12}>
             <Box component={Paper} p={'10px 15px'}>
               <Typography variant={'body1'} fontSize={'18px'}>
-                Status: {isLoading ? 'Loading' : boilerState ? 'ON' : 'OFF'}
+                Status: {isLoading ? 'Loading' : 'Optimal'}
               </Typography>
             </Box>
           </Grid>

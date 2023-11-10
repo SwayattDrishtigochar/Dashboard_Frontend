@@ -141,8 +141,8 @@ const Header = () => {
             {userInfo ? (
               <Box>
                 <Badge
-                  badgeContent={0}
-                  color='warning'
+                  badgeContent={1}
+                  color='success'
                   sx={{
                     marginRight: '10px',
                     cursor: 'pointer',
