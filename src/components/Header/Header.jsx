@@ -41,7 +41,19 @@ const AppBar = styled(MuiAppBar, {
   }),
 }));
 
-const AdminHeader = () => {
+const Header = () => {
+  const [open, setOpen] = useState(false);
+  const [anchorEl, setAnchorEl] = useState(null);
+  const [notificationEl, setNotificationEl] = useState(null);
+
+  const handleOpenNotification = (event) => {
+    setNotificationEl(event.currentTarget);
+  };
+
+  const handleCloseNotification = () => {
+    setNotificationEl(null);
+  };
+
   const dispatch = useDispatch();
   const navigate = useNavigate();
 
@@ -49,11 +61,8 @@ const AdminHeader = () => {
 
   const isMobile = useMediaQuery(theme.breakpoints.down('sm'));
 
-  const [open, setOpen] = useState(false);
-
   const [logoutApiCall] = useLogoutMutation();
 
-  const [anchorEl, setAnchorEl] = useState(null);
   const menuOpen = Boolean(anchorEl);
   const handleMenuOpen = (event) => {
     setAnchorEl(event.currentTarget);
@@ -132,11 +141,13 @@ const AdminHeader = () => {
             {userInfo ? (
               <Box>
                 <Badge
-                  badgeContent={4}
-                  color='success'
+                  badgeContent={0}
+                  color='warning'
                   sx={{
                     marginRight: '10px',
+                    cursor: 'pointer',
                   }}
+                  onClick={handleOpenNotification}
                 >
                   <NotificationsIcon />
                 </Badge>
@@ -172,6 +183,19 @@ const AdminHeader = () => {
               Logout
             </MenuItem>
           </Menu>
+          <Menu
+            anchorEl={notificationEl}
+            open={Boolean(notificationEl)}
+            onClose={handleCloseNotification}
+            sx={{ width: '400px' }}
+          >
+            {/* Replace the following MenuItem content with your actual notifications */}
+            <MenuItem onClick={handleCloseNotification}>
+              <Typography noWrap>
+                This is the area where you can see the notifications{' '}
+              </Typography>
+            </MenuItem>
+          </Menu>
         </Toolbar>
       </AppBar>
 
@@ -182,4 +206,4 @@ const AdminHeader = () => {
   );
 };
 
-export default AdminHeader;
+export default Header;

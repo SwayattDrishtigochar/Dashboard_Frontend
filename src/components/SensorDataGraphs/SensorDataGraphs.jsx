@@ -64,18 +64,21 @@ const SensorDataGraphs = ({ data_id }) => {
                   type='monotone'
                   dataKey='X_accel'
                   stroke='#ff8a8a'
+                  strokeWidth={3}
                   dot={false}
                 />
                 <Line
                   type='monotone'
                   dataKey='Y_accel'
                   stroke='#3fa7ff'
+                  strokeWidth={3}
                   dot={false}
                 />
                 <Line
                   type='monotone'
                   dataKey='Z_accel'
                   stroke='#fff111'
+                  strokeWidth={3}
                   dot={false}
                 />
               </LineChart>
@@ -109,6 +112,7 @@ const SensorDataGraphs = ({ data_id }) => {
                   type='monotone'
                   dataKey='Temperature'
                   stroke='#ff9751'
+                  strokeWidth={3}
                   dot={false}
                 />
               </LineChart>
@@ -141,6 +145,7 @@ const SensorDataGraphs = ({ data_id }) => {
                   type='monotone'
                   dataKey='Pressure'
                   stroke='#8884d8'
+                  strokeWidth={3}                                                                                                                
                   dot={false}
                 />
               </LineChart>
