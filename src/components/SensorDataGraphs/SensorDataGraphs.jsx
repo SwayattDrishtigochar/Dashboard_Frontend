@@ -279,7 +279,7 @@ const SensorDataGraphs = ({ data_id }) => {
           </Typography>
           <Paper sx={{ border: '1px solid black' }}>
             <ResponsiveContainer width='100%' height={300}>
-              <LineChart data={dummyData}>
+              <LineChart data={sensorData}>
                 <XAxis dataKey='timestamp' />
                 <YAxis />
                 <Tooltip />
@@ -287,7 +287,7 @@ const SensorDataGraphs = ({ data_id }) => {
                 <CartesianGrid stroke='#eee' strokeDasharray='5 5' />
                 <Line
                   type='monotone'
-                  dataKey='current'
+                  dataKey='Current'
                   stroke='#fff013'
                   strokeWidth={3}
                   dot={false}
