@@ -111,6 +111,12 @@ input[type='number'] {
   }
 }
 
+@media (max-width: 500px) {
+  #KioskBoard-VirtualKeyboard {
+    display: none !important;
+  }
+}
+
 @media (max-width: 1080px) {
   html {
     cursor: none !important;
